@@ -10,7 +10,7 @@
 .nav-center input{width:100%;max-width:450px;padding:10px 15px;border:2px solid #bdc3c7;border-radius:8px;font-size:16px;font-weight:bold;outline:none;transition:border-color 0.3s}
 .nav-center input:focus{border-color:#3498db}
 .nav-right{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end;flex-shrink:0}
-.btn-icon{background:#95a5a6;color:white;border:none;padding:8px 12px;border-radius:20px;font-size:12px;cursor:pointer}.awake-on{background:#27ae60!important}
+.btn-icon{background:#95a5a6;color:white;border:none;padding:8px 12px;border-radius:20px;font-size:12px;cursor:pointer}
 .main-container{display:flex;position:relative;height:calc(100vh - 60px)}
 .table-section{flex:1;overflow-x:auto;overflow-y:auto;height:calc(100vh - 60px);position:relative}
 table{width:100%;border-collapse:collapse;min-width:900px}
@@ -18,8 +18,8 @@ thead{position:sticky;top:0;z-index:20}
 th{padding:12px;text-align:center;border:1px solid #000;font-size:13px;font-weight:bold;background:#34495e;color:white;position:sticky;top:0;z-index:20}
 td{padding:10px;text-align:center;border:1px solid #000;font-size:13px}
 tr{cursor:pointer;transition:background 0.2s}tr:hover{background:#f8f9fa}tr.row-selected{outline:5px solid #0055FF !important;outline-offset:-5px;background:#e8f4fc !important}
-/* Cell Colors (Same as QadriStock) */
 .c-barcode{background:#FFD700;color:#000;font-weight:bold}.c-name{background:#FFFFFF;color:#000;text-align:center;font-weight:500}.c-inv{background:#32CD32;color:#000;font-weight:bold}.c-sale{background:#FFB6C1;color:#000;font-weight:bold}.c-dmd-neg{background:#800080;color:#FFFFFF;font-weight:bold}.c-dmd-pos{background:#FFFFFF;color:#000;font-weight:bold}.c-days-alert{background:#FF0000;color:#FFFFFF;font-weight:bold}.c-days-ok{background:#FFFFFF;color:#000}.c-default{background:#FFFFFF;color:#000}
+.c-vendor-row{background:#006400 !important;color:white !important;cursor:default !important}.c-vendor-name{background:#006400 !important;color:white !important;text-align:center !important;font-weight:bold;font-size:16px;padding:12px;outline:none;user-select:none}
 .status-bar{padding:10px;text-align:center;font-size:12px;color:#7f8c8d;background:#fff;border-top:1px solid #eee;position:fixed;bottom:0;width:100%;display:flex;justify-content:center;align-items:center;gap:10px;z-index:101;box-shadow:0 -2px 10px rgba(0,0,0,0.1)}.live-dot{width:8px;height:8px;background:#27ae60;border-radius:50%;animation:pulse 2s infinite}@keyframes pulse{0%{opacity:1}50%{opacity:0.3}100%{opacity:1}}
 @media(max-width:768px){.navbar h2{font-size:14px}.nav-center input{max-width:200px;padding:8px 10px;font-size:14px}}
 </style>
@@ -45,17 +45,44 @@ const tbody=document.getElementById('body');
 const searchInput=document.getElementById('search');
 const statusDiv=document.getElementById('status');
 
-/* ===== DATA FETCH FROM GITHUB ===== */
+/* ===== DATA FETCH FROM GITHUB (3 FILES) ===== */
 async function fullLoad() {
     statusDiv.innerText = 'Loading data from GitHub...';
     try {
-        let res = await fetch('data.json?cache=' + new Date().getTime());
-        if (!res.ok) throw new Error('Data file not found');
-        let serverItems = await res.json();
+        // 3no files ko ek sath fetch kar rahe hain
+        let [dataRes, vendorRes, orderRes] = await Promise.all([
+            fetch('data.json?cache=' + new Date().getTime()).then(r => r.json()),
+            fetch('vendors.json?cache=' + new Date().getTime()).then(r => r.json()),
+            fetch('order.json?cache=' + new Date().getTime()).then(r => r.json())
+        ]);
         
-        allData = serverItems;
+        let itemMap = new Map();
+        for (let item of dataRes) itemMap.set(item.bc, item);
+        
+        allData = [];
+        let placedBcs = new Set();
+        
+        // Pehle order.json ke hisaab se rows set karenge
+        for (let bc of orderRes) {
+            if (bc.startsWith("VENDOR_")) {
+                let vendor = vendorRes.find(v => v.bc === bc);
+                if (vendor) {
+                    allData.push({bc: vendor.bc, nm: vendor.nm, inv:0, sale:0, dmd:0, days:999, rate:0, tp:0});
+                    placedBcs.add(bc);
+                }
+            } else {
+                if (itemMap.has(bc)) {
+                    allData.push(itemMap.get(bc));
+                    placedBcs.add(bc);
+                }
+            }
+        }
+        
+        // Jo items order mein nahi hain unko end par add karenge
+        for (let item of dataRes) if (!placedBcs.has(item.bc)) allData.push(item);
+        for (let vendor of vendorRes) if (!placedBcs.has(vendor.bc)) allData.push({bc: vendor.bc, nm: vendor.nm, inv:0, sale:0, dmd:0, days:999, rate:0, tp:0});
+        
         filteredData = [...allData];
-        
         doSearch();
         statusDiv.innerText = 'Last Synced: ' + new Date().toLocaleTimeString();
     } catch(e) {
@@ -88,14 +115,14 @@ function performSearchJump(){
     }
     for(let i=startIdx;i<filteredData.length;i++){
         let it=filteredData[i];
-        if(it.nm.toLowerCase().includes(query)||it.bc.includes(query)){
+        if(!it.bc.startsWith('VENDOR_')&&(it.nm.toLowerCase().includes(query)||it.bc.includes(query))){
             selectAndScrollToTop(i);
             return;
         }
     }
     for(let i=0;i<startIdx;i++){
         let it=filteredData[i];
-        if(it.nm.toLowerCase().includes(query)||it.bc.includes(query)){
+        if(!it.bc.startsWith('VENDOR_')&&(it.nm.toLowerCase().includes(query)||it.bc.includes(query))){
             selectAndScrollToTop(i);
             return;
         }
@@ -106,7 +133,7 @@ function performSearchJump(){
 function selectAndScrollToTop(viewIdx){
     let item=filteredData[viewIdx];
     selectedRowId=item.bc;
-    doSearch();
+    displayRows();
     setTimeout(()=>{
         let row=tbody.querySelector(`tr[data-row-id='${item.bc}']`);
         if(row){
@@ -121,7 +148,7 @@ function selectAndScrollToTop(viewIdx){
     statusDiv.innerText='Match found at row '+(viewIdx+1);
 }
 
-/* ===== DISPLAY ROWS (ALL COLUMNS WITH COLORS) ===== */
+/* ===== DISPLAY ROWS WITH VENDORS ===== */
 function doSearch(){
     let q = searchInput.value.toLowerCase();
     filteredData = allData.filter(i => i.nm.toLowerCase().includes(q) || i.bc.includes(q));
@@ -134,11 +161,17 @@ function displayRows(){
         let r=filteredData[i];
         let s=(selectedRowId===r.bc)?' row-selected':'';
         
-        // Calculating classes for Demand and Days
+        if(r.bc.startsWith('VENDOR_')){
+            h+=`<tr class='c-vendor-row' data-row-id='${r.bc}'>`+
+               `<td></td><td class='c-vendor-name'>${r.nm}</td><td></td><td></td><td></td><td></td><td></td><td></td>`+
+               `</tr>`;
+            continue;
+        }
+        
         let dC = parseFloat(r.dmd) < 0 ? 'c-dmd-neg' : 'c-dmd-pos';
         let dyC = (parseFloat(r.days) <= 15 && parseFloat(r.days) != 999) ? 'c-days-alert' : 'c-days-ok';
         
-        h+=`<tr class='${s}' data-row-id='${r.bc}' onclick='handleRowClick("${r.bc}")'>`+
+        h+=`<tr class='${s}' data-row-id='${r.bc}'>`+
         `<td class='c-barcode'>${r.bc}</td>`+
         `<td class='c-name'>${r.nm}</td>`+
         `<td class='c-inv'>${r.inv}</td>`+
@@ -153,15 +186,6 @@ function displayRows(){
         h = '<tr><td colspan="8" style="text-align:center;">No data found</td></tr>';
     }
     tbody.innerHTML=h;
-}
-
-function handleRowClick(bc) {
-    if(selectedRowId === bc) {
-        selectedRowId = null;
-    } else {
-        selectedRowId = bc;
-    }
-    displayRows();
 }
 
 /* ===== INITIALIZATION ===== */
