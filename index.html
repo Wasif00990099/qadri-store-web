@@ -170,7 +170,7 @@ function displayRows(){
         let dC = parseFloat(r.dmd) < 0 ? 'c-dmd-neg' : 'c-dmd-pos';
         let dyC = (parseFloat(r.days) <= 15 && parseFloat(r.days) != 999) ? 'c-days-alert' : 'c-days-ok';
         
-        h+=`<tr class='${s}' data-row-id='${r.bc}'>`+
+        h+=`<tr class='${s}' data-row-id='${r.bc}' onclick="selectRowByClick('${r.bc}')">`+
         `<td class='c-barcode'>${r.bc}</td>`+
         `<td class='c-name'>${r.nm}</td>`+
         `<td class='c-inv'>${r.inv}</td>`+
@@ -185,6 +185,13 @@ function displayRows(){
         h = '<tr><td colspan="8" style="text-align:center;">No data found</td></tr>';
     }
     tbody.innerHTML=h;
+}
+
+/* ===== ROW CLICK TO FOCUS ===== */
+function selectRowByClick(bc){
+    selectedRowId = bc;
+    displayRows(); // Row ko highlight karne ke liye table re-render karega
+    statusDiv.innerText='Row selected: ' + bc;
 }
 
 /* ===== INITIALIZATION ===== */
