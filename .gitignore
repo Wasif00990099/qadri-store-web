@@ -1,0 +1,4 @@
+*.exe
+*.jar
+/META-INF/
+/Cfg Files/

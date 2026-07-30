@@ -1,0 +1,237 @@
+Update tp
+
+
+
+BEGIN TRANSACTION;
+
+UPDATE ProductItem
+SET CostPrice = 160
+WHERE LongName LIKE '%Protect Paste 110g%';
+
+UPDATE ProductItemVendor
+SET TradePrice = 160
+WHERE ProductItemId IN (SELECT ProductItemId FROM ProductItem WHERE LongName LIKE '%Protect Paste 110g%');
+
+UPDATE BranchProductItem
+SET CostPrice = 160
+WHERE ProductItemId IN (SELECT ProductItemId FROM ProductItem WHERE LongName LIKE '%Protect Paste 110g%');
+
+COMMIT TRANSACTION;
+
+
+
+update price
+
+
+-- Check kar lo kaun se records update honge
+SELECT ProductItemId, LongName, SaleRate, CostPrice
+FROM ProductItem
+WHERE LongName LIKE '%Shan Nihari Double%';
+
+-- Phir update karo
+UPDATE ProductItem
+SET SaleRate = 270
+WHERE LongName LIKE '%Shan Nihari Double%';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Purchase Invoice
+
+
+
+BEGIN TRANSACTION
+BEGIN TRY
+
+    -- ================= SETTINGS =================
+    DECLARE @VendorName NVARCHAR(200) = 'Joria'
+    DECLARE @ItemName NVARCHAR(200) = 'Cheeni 1kg'
+    DECLARE @Qty DECIMAL(18,2) = 50
+    DECLARE @PurchasePrice MONEY = 145
+    DECLARE @RetailPrice MONEY = 180
+    
+    -- 🌟 NAYA FIX: Item ki SaleRate permanently update karni hai toh yahan price likho (Jaise 270). 
+    -- Agar update nahi karni hai, toh 0 rakho.
+    DECLARE @NewSaleRate MONEY = 0  
+
+    DECLARE @VendorID INT
+    DECLARE @ProductItemID INT
+    DECLARE @ItemBarcode NVARCHAR(100)
+
+    -- 1. VENDOR DHUNDHNA
+    SELECT @VendorID = ProductVendorId FROM ProductVendor WHERE Name = @VendorName
+    IF @VendorID IS NULL BEGIN RAISERROR('Vendor nahi mila', 16, 1) RETURN END
+
+    -- 2. ITEM DHUNDHNA
+    SELECT @ProductItemID = ProductItemId, @ItemBarcode = ISNULL(Barcode, '') FROM ProductItem WHERE ShortName = @ItemName OR LongName = @ItemName
+    IF @ProductItemID IS NULL BEGIN RAISERROR('Item nahi mila', 16, 1) RETURN END
+
+    -- ================= NAYA STEP: SALE RATE UPDATE =================
+    IF @NewSaleRate > 0
+    BEGIN
+        UPDATE ProductItem
+        SET SaleRate = @NewSaleRate
+        WHERE ProductItemId = @ProductItemID
+        
+        PRINT 'Item ki SaleRate update ho gayi: ' + CAST(@NewSaleRate AS VARCHAR)
+    END
+
+    -- 3. INVOICE NUMBER BANANA
+    DECLARE @YearPrefix NVARCHAR(10) = 'PI' + CAST(YEAR(GETDATE()) AS VARCHAR)
+    DECLARE @MaxInvNum INT
+    SELECT @MaxInvNum = ISNULL(MAX(CAST(REPLACE(TransactionNumber, @YearPrefix, '') AS INT)), 0) + 1 
+    FROM PurchaseInvoice 
+    WHERE TransactionNumber LIKE @YearPrefix + '%'
+    
+    DECLARE @TransNum NVARCHAR(50) = @YearPrefix + CAST(@MaxInvNum AS VARCHAR)
+
+    -- 4. INVOICE SAVE KARNA
+    DECLARE @NewInvoiceID INT
+    DECLARE @HeaderTable TABLE (InsertedID INT)
+
+    INSERT INTO PurchaseInvoice 
+    (InvoiceNumber, TransactionNumber, PurchaseInvoiceDate, ProductVendorId, NetAmount, DataEntryDate, DataEntryStatus, UserId, DataEntryBranchId, PaymentModeId)
+    OUTPUT INSERTED.PurchaseInvoiceId INTO @HeaderTable
+    VALUES 
+    (@MaxInvNum, @TransNum, GETDATE(), @VendorID, (@Qty * @PurchasePrice), GETDATE(), 1, 1, 1, 1)
+
+    SELECT @NewInvoiceID = InsertedID FROM @HeaderTable
+
+    -- 5. ITEM SAVE KARNA
+    INSERT INTO PurchaseInvoiceItem 
+    (PurchaseInvoiceId, ProductItemId, Quantity, Price, TradePrice, SaleRate, ItemStatus)
+    VALUES 
+    (@NewInvoiceID, @ProductItemID, @Qty, @PurchasePrice, @PurchasePrice, @RetailPrice, 1)
+
+    -- 6. INVENTORY PLUS KARNA
+    UPDATE StockData
+    SET Inventory = ISNULL(Inventory, 0) + @Qty
+    WHERE Barcode = @ItemBarcode
+
+    COMMIT TRANSACTION
+    PRINT 'SUCCESS! Invoice ' + @TransNum + ' ban gayi hai.'
+
+END TRY
+BEGIN CATCH
+    ROLLBACK TRANSACTION
+    PRINT ERROR_MESSAGE()
+END CATCH
+
+
+
+
+inventory minus
+
+
+
+/* ============================================
+   🎯 READY-TO-USE SALE QUERY - Future Use!
+   Sirf ye 3 values change karo!
+   ============================================ */
+
+DECLARE @ProductName NVARCHAR(200) = 'PRODUCT NAME YA BARCODE';  -- ⬅️ CHANGE KARO
+DECLARE @Qty DECIMAL = 1;                                        -- ⬅️ CHANGE KARO  
+DECLARE @Rate MONEY = 0.00;                                      -- ⬅️ CHANGE KARO
+DECLARE @CostPrice MONEY = 0.00;                                  -- ⬅️ CHANGE KARO
+
+-- Settings (usually same)
+DECLARE @BranchID INT = 1;
+DECLARE @UserID INT = 4;
+DECLARE @CounterID INT = 3;
+DECLARE @PayModeID INT = 1;
+DECLARE @SaleTypeID INT = 1;
+DECLARE @ClientID INT = 1;
+
+BEGIN TRY
+BEGIN TRANSACTION;
+
+DECLARE @PID INT;
+DECLARE @Bar NVARCHAR(30);
+DECLARE @PName NVARCHAR(200);
+
+SELECT TOP 1 @PID=ProductItemId, @Bar=ISNULL(Barcode,''), @PName=LongName
+FROM ProductItem 
+WHERE LongName LIKE '%'+@ProductName+'%' OR ShortName LIKE '%'+@ProductName+'%' OR Barcode=@ProductName;
+
+IF @PID IS NULL BEGIN SELECT '❌ Not Found' S; ROLLBACK; RETURN; END
+
+DECLARE @PosID INT;
+SELECT TOP 1 @PosID=POSSessionActivityId FROM POSSessionActivity 
+WHERE UserId=@UserID AND CompanyBranchId=@BranchID AND CAST(DataEntryDate AS DATE)=CAST(GETDATE() AS DATE)
+ORDER BY POSSessionActivityId DESC;
+
+IF @PosID IS NULL
+BEGIN
+    INSERT INTO POSSessionActivity (POSActivityType,Amount,CounterId,CompanyBranchId,UserId,DataEntryDate,DataEntryStatus,Remarks,RecordLockStatus,TransactionNumber)
+    VALUES (6,0,@CounterID,@BranchID,@UserID,GETDATE(),1,'Day Start',0,0);
+    SET @PosID = SCOPE_IDENTITY();
+END
+
+DECLARE @InvNum INT = (SELECT ISNULL(MAX(InvoiceNumber),0)+1 FROM SaleInvoice);
+
+INSERT INTO SaleInvoice (
+    InvoiceNumber, InvoiceDate, NetAmount, CompanyBranchId, UserId, CounterId,
+    ClientInformationId, CreditPeriod, DataEntryDate, DataEntryStatus,
+    Remarks, NotePaid, InvoiceDiscount, NetItemDiscount, RoundOffValue,
+    ReferenceNumber, AccountsPost, SaleTypeId, POSSessionActivityId,
+    RawFilter, RecordLockStatus, SlipNumber, NetOtherCharges,
+    DeliveryPersonId, SalesmanId, CurrencyRateId, CurrencyRate, CashBack
+)
+VALUES (
+    @InvNum, GETDATE(), (@Qty*@Rate), @BranchID, @UserID, @CounterID,
+    @ClientID, 0, GETDATE(), 1,
+    '', (@Qty*@Rate), 0, 0, 0,
+    '', 1, @SaleTypeID, @PosID,
+    0, 0, '', 0,
+    NULL, NULL, NULL, 1.00, 0.00
+);
+
+DECLARE @SID INT = SCOPE_IDENTITY();
+
+INSERT INTO SaleInvoiceItem (SaleInvoiceId,ProductItemId,Quantity,Price,SaleRate,DataEntryDate,UserId,ItemStatus,CostPrice,Barcode,DiscountRate,RowSortId)
+VALUES (@SID,@PID,@Qty,@Rate,@Rate,GETDATE(),@UserID,1,@CostPrice,@Bar,0,1);
+
+DECLARE @IID INT = SCOPE_IDENTITY();
+
+INSERT INTO SaleInvoicePaymentMode (SaleInvoiceId,PaymentModeId,PaymentModeReferanceId,PaymentModeAmount)
+VALUES (@SID,@PayModeID,0,(@Qty*@Rate));
+
+INSERT INTO COGS (TransactionDate,ProductItemId,SaleInvoiceItemId,Quantity,CostRate,OutRate,CompanyBranchId,UserId,DataEntryDate,RawFilter)
+VALUES (GETDATE(),@PID,@IID,@Qty,@CostPrice,@Rate,@BranchID,@UserID,GETDATE(),0);
+
+DECLARE @Bal DECIMAL = ISNULL((SELECT TOP 1 BalanceQuantity FROM InventoryTracking WHERE ProductItemId=@PID ORDER BY InventoryTrackingId DESC),0);
+
+INSERT INTO InventoryTracking (ProductItemId,Quantity,Rate,InventoryType,ReferanceType,BalanceQuantity,SaleInvoiceItemId,CompanyBranchId,DataEntryDate,DataEntryStatus)
+VALUES (@PID,(@Qty*-1),@CostPrice,2,2,(@Bal-@Qty),@IID,@BranchID,GETDATE(),1);
+
+IF EXISTS (SELECT 1 FROM DailySale WHERE CAST(StartDate AS DATE)=CAST(GETDATE() AS DATE) AND CompanyBranchId=@BranchID)
+BEGIN
+UPDATE DailySale SET InvoiceCount=InvoiceCount+1, NetAmount=NetAmount+(@Qty*@Rate), DataEntryDate=GETDATE()
+WHERE CAST(StartDate AS DATE)=CAST(GETDATE() AS DATE) AND CompanyBranchId=@BranchID;
+END
+ELSE
+BEGIN
+INSERT INTO DailySale (TransactionDate,StartDate,EndDate,TransactionTypeId,CompanyBranchId,ClientInformationId,SalesmanId,PaymentModeIds,SaleTypeId,CounterId,InvoiceCount,NetAmount,InvoiceDiscount,NetItemDiscount,RoundOffValue,NetOtherCharges,DinePersons,DataEntryDate,DataEntryStatus)
+VALUES (GETDATE(),GETDATE(),GETDATE(),1,@BranchID,@ClientID,NULL,CAST(@PayModeID AS VARCHAR),@SaleTypeID,@CounterID,1,(@Qty*@Rate),0,0,0,0,0,GETDATE(),1);
+END
+
+COMMIT TRANSACTION;
+
+SELECT '✅ SALE DONE!' S, @SID [InvID], @InvNum [No], @PName Product, @Qty Qty, @Rate Rate, (@Qty*@Rate) Total, GETDATE() Time;
+
+END TRY
+BEGIN CATCH
+IF @@TRANCOUNT > 0 ROLLBACK;
+SELECT '❌ ERROR' S, ERROR_MESSAGE() M;
+END CATCH

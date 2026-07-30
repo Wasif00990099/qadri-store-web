@@ -1,0 +1,31 @@
+Sat Jul 18 20:23:11 PKT 2026 | ERROR: Failed to open VendorUpdateDialog
+Exception: Cannot invoke "javax.swing.JButton.doClick()" because "this.btnToday" is null
+    at UnpackUpdater$VendorUpdateDialog.lambda$new$0(UnpackUpdater.java:333)
+    at java.desktop/javax.swing.JComboBox.fireActionEvent(JComboBox.java:1294)
+    at java.desktop/javax.swing.JComboBox.contentsChanged(JComboBox.java:1367)
+    at java.desktop/javax.swing.AbstractListModel.fireContentsChanged(AbstractListModel.java:127)
+    at java.desktop/javax.swing.DefaultComboBoxModel.setSelectedItem(DefaultComboBoxModel.java:94)
+    at java.desktop/javax.swing.DefaultComboBoxModel.addElement(DefaultComboBoxModel.java:132)
+    at java.desktop/javax.swing.JComboBox.addItem(JComboBox.java:746)
+    at UnpackUpdater$VendorUpdateDialog.populateVendorCombo(UnpackUpdater.java:517)
+    at UnpackUpdater$VendorUpdateDialog.<init>(UnpackUpdater.java:339)
+    at UnpackUpdater.lambda$performUnpackUpdate$0(UnpackUpdater.java:173)
+    at java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:323)
+    at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:723)
+    at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:702)
+    at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+    at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+    at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+    at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+    at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+    at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+--------------------------------------------------
+Sat Jul 18 20:24:16 PKT 2026 | loadRecords: filterRange=18-07-2026 to 18-07-2026 | startDate=2026-07-18 | endDate=2026-07-18
+Sat Jul 18 20:24:21 PKT 2026 | loadRecords: filterRange=18-07-2026 to 18-07-2026 | startDate=2026-07-18 | endDate=2026-07-18
+Sat Jul 18 20:24:24 PKT 2026 | loadRecords: filterRange=18-07-2026 to 18-07-2026 | startDate=2026-07-18 | endDate=2026-07-18
+Sat Jul 18 20:24:26 PKT 2026 | loadRecords: filterRange=18-07-2026 to 18-07-2026 | startDate=2026-07-18 | endDate=2026-07-18
+Sat Jul 18 20:24:29 PKT 2026 | loadRecords: filterRange=18-07-2026 to 18-07-2026 | startDate=2026-07-18 | endDate=2026-07-18
+Sat Jul 18 20:24:32 PKT 2026 | loadRecords: filterRange=18-07-2026 to 18-07-2026 | startDate=2026-07-18 | endDate=2026-07-18
+Sat Jul 18 20:24:36 PKT 2026 | loadRecords: filterRange=18-07-2026 to 18-07-2026 | startDate=2026-07-18 | endDate=2026-07-18
+Sun Jul 19 09:53:03 PKT 2026 | loadRecords: filterRange=19-07-2026 to 19-07-2026 | startDate=2026-07-19 | endDate=2026-07-19
+Sun Jul 19 09:53:08 PKT 2026 | loadRecords: filterRange=19-07-2026 to 19-07-2026 | startDate=2026-07-19 | endDate=2026-07-19

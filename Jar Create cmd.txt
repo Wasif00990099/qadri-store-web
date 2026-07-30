@@ -1,0 +1,28 @@
+1)
+cd /d D:\Excel
+2)
+javac -cp ".;mssql-jdbc-13.2.1.jre11.jar" QadriStore.java
+3)
+mkdir temp_jar
+4)
+cd temp_jar
+5)
+jar xf ..\mssql-jdbc-13.2.1.jre11.jar
+6)
+del /s /q META-INF\*.SF
+7)
+del /s /q META-INF\*.DSA
+8)
+del /s /q META-INF\*.RSA
+9)
+copy ..\*.class .
+10)
+jar cfm ..\QadriStore.jar ..\Manifest.txt *
+11)
+cd ..
+12)
+rmdir /s /q temp_jar
+13)
+del *.class
+14)
+java -jar QadriStore.jar
