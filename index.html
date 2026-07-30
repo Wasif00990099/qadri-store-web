@@ -1,3 +1,42 @@
+<!DOCTYPE html>
+<html><head>
+<title>Stock Status</title><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;margin:0;background:#f4f6f9}
+.navbar{background:white;padding:10px 15px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 5px rgba(0,0,0,0.1);position:sticky;top:0;z-index:100;gap:10px}
+.nav-left{display:flex;align-items:center;flex-shrink:0}.back-btn{background:#ecf0f1;border-radius:50%;width:35px;height:35px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#2c3e50;font-weight:bold;margin-right:15px}
+.navbar h2{font-size:18px;color:#2c3e50;margin:0;white-space:nowrap}
+.nav-center{flex:1;display:flex;justify-content:center;padding:0 15px}
+.nav-center input{width:100%;max-width:450px;padding:10px 15px;border:2px solid #bdc3c7;border-radius:8px;font-size:16px;font-weight:bold;outline:none;transition:border-color 0.3s}
+.nav-center input:focus{border-color:#3498db}
+.nav-right{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end;flex-shrink:0}
+.btn-icon{background:#95a5a6;color:white;border:none;padding:8px 12px;border-radius:20px;font-size:12px;cursor:pointer}
+.main-container{display:flex;position:relative;height:calc(100vh - 60px)}
+.table-section{flex:1;overflow-x:auto;overflow-y:auto;height:calc(100vh - 60px);position:relative}
+table{width:100%;border-collapse:collapse;min-width:900px}
+thead{position:sticky;top:0;z-index:20}
+th{padding:12px;text-align:center;border:1px solid #000;font-size:13px;font-weight:bold;background:#34495e;color:white;position:sticky;top:0;z-index:20}
+td{padding:10px;text-align:center;border:1px solid #000;font-size:13px}
+tr{cursor:pointer;transition:background 0.2s}tr:hover{background:#f8f9fa}tr.row-selected{outline:5px solid #0055FF !important;outline-offset:-5px;background:#e8f4fc !important}
+.c-barcode{background:#FFD700;color:#000;font-weight:bold}.c-name{background:#FFFFFF;color:#000;text-align:center;font-weight:500}.c-inv{background:#32CD32;color:#000;font-weight:bold}.c-sale{background:#FFB6C1;color:#000;font-weight:bold}.c-dmd-neg{background:#800080;color:#FFFFFF;font-weight:bold}.c-dmd-pos{background:#FFFFFF;color:#000;font-weight:bold}.c-days-alert{background:#FF0000;color:#FFFFFF;font-weight:bold}.c-days-ok{background:#FFFFFF;color:#000}.c-default{background:#FFFFFF;color:#000}
+.c-vendor-row{background:#006400 !important;color:white !important;cursor:default !important}.c-vendor-name{background:#006400 !important;color:white !important;text-align:center !important;font-weight:bold;font-size:16px;padding:12px;outline:none;user-select:none}
+.status-bar{padding:10px;text-align:center;font-size:12px;color:#7f8c8d;background:#fff;border-top:1px solid #eee;position:fixed;bottom:0;width:100%;display:flex;justify-content:center;align-items:center;gap:10px;z-index:101;box-shadow:0 -2px 10px rgba(0,0,0,0.1)}.live-dot{width:8px;height:8px;background:#27ae60;border-radius:50%;animation:pulse 2s infinite}@keyframes pulse{0%{opacity:1}50%{opacity:0.3}100%{opacity:1}}
+@media(max-width:768px){.navbar h2{font-size:14px}.nav-center input{max-width:200px;padding:8px 10px;font-size:14px}}
+</style>
+</head><body>
+<div class='navbar'>
+<div class='nav-left'><h2>Stock Status (Live Sync)</h2></div>
+<div class='nav-center'><input type='text' id='search' placeholder='Search (Press Enter to jump)...' onkeydown='handleSearchKey(event)'></div>
+<div class='nav-right'>
+<button class='btn-icon'>Sync View</button>
+</div></div>
+<div class='main-container'>
+<div class='table-section' id='tableSection'>
+<table><thead><tr><th>Barcode</th><th>Name</th><th>Inventory</th><th>30 Days Sale</th><th>Demand</th><th>Days Stock</th><th>Sale Rate</th><th>TP</th></tr></thead>
+<tbody id='body'></tbody></table>
+</div>
+</div>
+<div class='status-bar'><span id='status'>Connecting...</span><div class='live-dot'></div></div>
 <script>
 let allData=[];
 let filteredData=[];
@@ -43,9 +82,8 @@ async function fullLoad() {
         for (let item of dataRes) if (!placedBcs.has(item.bc)) allData.push(item);
         for (let vendor of vendorRes) if (!placedBcs.has(vendor.bc)) allData.push({bc: vendor.bc, nm: vendor.nm, inv:0, sale:0, dmd:0, days:999, rate:0, tp:0});
         
-        // SEARCH FILTER HATA DIA HAI TAAKE TYPE KARNE PAR LIST CHOTI NA HO
-        filteredData = [...allData]; 
-        displayRows();
+        filteredData = [...allData];
+        doSearch();
         statusDiv.innerText = 'Last Synced: ' + new Date().toLocaleTimeString();
     } catch(e) {
         statusDiv.innerText = 'Error: ' + e.message + '. Wait for server to sync.';
@@ -56,16 +94,14 @@ async function fullLoad() {
 function handleSearchKey(event){
     if(event.key==='Enter'){
         event.preventDefault();
-        performSearchJump(); // Sirf Enter dabane par hi focus hoga
+        performSearchJump();
     } else if(event.key==='Escape'){
         searchInput.value='';
         selectedRowId=null;
-        // doSearch() ki jagah direct displayRows() ko call karenge
-        filteredData = [...allData];
-        displayRows();
+        doSearch();
         statusDiv.innerText='Search cleared';
     }
-    // Type karne par kuch nahi hoga (doSearch remove kar diya gaya hai)
+    // Note: Yahan 'else { doSearch(); }' hata diya hai taake type karte waqt table filter na ho.
 }
 
 function performSearchJump(){
@@ -112,7 +148,11 @@ function selectAndScrollToTop(viewIdx){
 }
 
 /* ===== DISPLAY ROWS WITH VENDORS ===== */
-// doSearch function ko hata diya hai kyunki ab humein type karne par filter nahi karna
+function doSearch(){
+    let q = searchInput.value.toLowerCase();
+    filteredData = allData.filter(i => i.nm.toLowerCase().includes(q) || i.bc.includes(q));
+    displayRows();
+}
 
 function displayRows(){
     let h='';
@@ -150,4 +190,4 @@ function displayRows(){
 /* ===== INITIALIZATION ===== */
 fullLoad();
 setInterval(fullLoad, 120000); // Har 2 minute baad data update hoga
-</script>
+</script></body></html>
