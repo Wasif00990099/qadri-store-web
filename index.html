@@ -67,19 +67,18 @@ function setOnline(isOnline, customMsg = '') {
     }
 }
 
-/* ===== DATA FETCH FROM GITHUB (FAST LOAD) ===== */
+/* ===== DATA FETCH FROM GITHUB (FAST LOAD & NO CACHE) ===== */
 async function fullLoad() {
     try {
-        let d = new Date().getTime(); // Cache busting
+        let d = new Date().getTime(); // Cache busting URL
         
-        // Sab se pehle data.json uthao jisme items aur lastSync time dono hain
-        let dataObj = await fetch('data.json?t=' + d).then(r => r.json());
+        // {cache: 'no-store'} add kiya hai taake GitHub/browser hamesha NEW data hi de
+        let dataObj = await fetch('data.json?t=' + d, {cache: 'no-store'}).then(r => r.json());
         let dataRes = dataObj.items; 
         let lastSyncTime = dataObj.lastSync; 
         
-        // Phir baki files uthao
-        let vendorRes = await fetch('vendors.json?t=' + d).then(r => r.json()).catch(() => []);
-        let orderRes = await fetch('order.json?t=' + d).then(r => r.json()).catch(() => []);
+        let vendorRes = await fetch('vendors.json?t=' + d, {cache: 'no-store'}).then(r => r.json()).catch(() => []);
+        let orderRes = await fetch('order.json?t=' + d, {cache: 'no-store'}).then(r => r.json()).catch(() => []);
         
         let itemMap = new Map();
         for (let item of dataRes) itemMap.set(item.bc, item);
@@ -108,7 +107,6 @@ async function fullLoad() {
         filteredData = [...allData];
         doSearch();
         
-        // Yahan sirf GitHub wala server time aayega, 30 seconds wala local time nahi
         if(lastSyncTime) {
             setOnline(true, 'Server Online (Data Synced: ' + lastSyncTime + ')');
         } else {
@@ -243,16 +241,16 @@ function selectRowByClick(bc){
 }
 
 /* ===== INITIALIZATION ===== */
-fullLoad(); // Page open hote hi turant data uthayega
+fullLoad();
 
-// Yahan 2 minutes (120000 ms) ka interval lagaya hai
+// 2 minutes (120000 ms) ka interval
 let syncInterval = setInterval(fullLoad, 120000); 
 
 document.addEventListener('visibilitychange', function() {
     if (document.hidden) {
         clearInterval(syncInterval);
     } else {
-        syncInterval = setInterval(fullLoad, 120000); // Tab wapas aane par bhi 2 minute ka interval
+        syncInterval = setInterval(fullLoad, 120000);
         fullLoad(); 
     }
 });
