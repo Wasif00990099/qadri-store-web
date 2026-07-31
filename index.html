@@ -245,14 +245,15 @@ function selectRowByClick(bc){
 /* ===== INITIALIZATION ===== */
 fullLoad(); // Page open hote hi turant data uthayega
 
-let syncInterval = setInterval(fullLoad, 30000); // Background mein 30 seconds baad uthayega
+// Yahan 2 minutes (120000 ms) ka interval lagaya hai
+let syncInterval = setInterval(fullLoad, 120000); 
 
 document.addEventListener('visibilitychange', function() {
     if (document.hidden) {
         clearInterval(syncInterval);
     } else {
-        syncInterval = setInterval(fullLoad, 30000);
-        fullLoad(); // Wapas tab par aaye toh turant uthayega
+        syncInterval = setInterval(fullLoad, 120000); // Tab wapas aane par bhi 2 minute ka interval
+        fullLoad(); 
     }
 });
 </script></body></html>
