@@ -48,7 +48,7 @@ tr{cursor:pointer;transition:background 0.2s}tr:hover{background:#f8f9fa}tr.row-
 let allData=[];
 let filteredData=[];
 let selectedRowId=null;
-let isInitialLoad = true; // Pehli dafa table poora banega, baad mein sirf numbers update honge
+let isInitialLoad = true;
 const tbody=document.getElementById('body');
 const searchInput=document.getElementById('search');
 const statusText=document.getElementById('statusText');
@@ -106,26 +106,29 @@ async function fullLoad() {
         for (let item of dataRes) if (!placedBcs.has(item.bc)) allData.push(item);
         for (let vendor of vendorRes) if (!placedBcs.has(vendor.bc)) allData.push({bc: vendor.bc, nm: vendor.nm, inv:0, sale:0, dmd:0, days:999, rate:0, tp:0});
         
-        doSearch(); // Data process karke table update karega
+        // Aapke purane logic ke hisaab se filteredData mein allData daal diya
+        filteredData = [...allData];
+        doSearch();
         
         setOnline(true, 'Server Online (Synced: ' + new Date().toLocaleTimeString() + ')');
-        isInitialLoad = false; // Pehli load complete ho gayi
+        isInitialLoad = false;
     } catch(e) {
         setOnline(false, 'Server Offline');
     }
 }
 
-/* ===== SEARCH LOGIC ===== */
+/* ===== SEARCH LOGIC (Aapka Original) ===== */
 function handleSearchKey(event){
     if(event.key==='Enter'){
         event.preventDefault();
-        performSearchJump();
+        performSearchJump(); // Enter dabate hi item jump karega
     } else if(event.key==='Escape'){
         searchInput.value='';
         selectedRowId=null;
         doSearch();
         setOnline(true, 'Search cleared');
     }
+    // Type karte waqt table filter nahi hoga, poora page waise hi rahega
 }
 
 function performSearchJump(){
@@ -165,20 +168,16 @@ function selectAndScrollToTop(viewIdx){
             let thH=th?th.offsetHeight:40;
             let rR=row.getBoundingClientRect();
             let cR=sc.getBoundingClientRect();
+            // Yahan item uper/neche scroll hota hai
             sc.scrollTo({top:(rR.top-cR.top)+sc.scrollTop-thH-5,behavior:'smooth'});
         }
     },50);
     setOnline(true, 'Match found at row '+(viewIdx+1));
 }
 
-/* ===== DISPLAY ROWS (SMOOTH UPDATER) ===== */
+/* ===== DISPLAY ROWS (Smooth Background Update) ===== */
 function doSearch(){
-    let q = searchInput.value.toLowerCase();
-    if(q === '') {
-        filteredData = [...allData];
-    } else {
-        filteredData = allData.filter(i => i.nm.toLowerCase().includes(q) || i.bc.includes(q));
-    }
+    // Search filter yahan nahi ho raha, poori list displayRows mein jayegi
     displayRows();
 }
 
@@ -217,18 +216,22 @@ function displayRows() {
     }
     
     // Agar pehli dafa load ho raha hai ya search ho raha hai, toh poora table replace karo
-    if (isInitialLoad || searchInput.value !== '') {
+    if (isInitialLoad) {
         tbody.innerHTML = h;
-        document.getElementById('tableSection').scrollTop = currentScroll; // Wapas usi par scroll rakho
+        document.getElementById('tableSection').scrollTop = currentScroll;
     } else {
         // Background silent update: Sirf rows ke andar ka data change karo, table mat hilo
         let currentRows = tbody.querySelectorAll('tr');
         let newRows = new DOMParser().parseFromString('<table><tbody>' + h + '</tbody></table>', 'text/html').body.querySelectorAll('tr');
         
-        for (let i = 0; i < currentRows.length; i++) {
-            if (currentRows[i].outerHTML !== newRows[i].outerHTML) {
-                currentRows[i].replaceWith(newRows[i]); // Sirf changed row ko update karo
+        if (currentRows.length === newRows.length) {
+            for (let i = 0; i < currentRows.length; i++) {
+                if (currentRows[i].outerHTML !== newRows[i].outerHTML) {
+                    currentRows[i].replaceWith(newRows[i]);
+                }
             }
+        } else {
+            tbody.innerHTML = h; // Agar rows kam zyada hui toh poora replace kardo
         }
     }
 }
@@ -246,13 +249,13 @@ fullLoad();
 // Background Sync Timer
 let syncInterval = setInterval(fullLoad, 30000); // 30 seconds
 
-// Agar user doosre tab par chala gaya hai, toh background sync ruk jayega (RAM/CPU bachane ke liye)
+// Agar user doosre tab par chala gaya hai, toh background sync ruk jayega
 document.addEventListener('visibilitychange', function() {
     if (document.hidden) {
-        clearInterval(syncInterval); // Tab chhupa hua hai, sync band karo
+        clearInterval(syncInterval);
     } else {
-        syncInterval = setInterval(fullLoad, 30000); // Wapas aaya, sync dobara chalu karo
-        fullLoad(); // Aur turant ek dafa update kar lo
+        syncInterval = setInterval(fullLoad, 30000);
+        fullLoad();
     }
 });
 </script></body></html>
