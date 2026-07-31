@@ -76,10 +76,16 @@ async function fullLoad() {
     }
     
     try {
-        let [dataRes, vendorRes, orderRes] = await Promise.all([
-            fetch('data.json?cache=' + new Date().getTime()).then(r => r.json()),
-            fetch('vendors.json?cache=' + new Date().getTime()).then(r => r.json()),
-            fetch('order.json?cache=' + new Date().getTime()).then(r => r.json())
+        let d = new Date().getTime(); // Cache busting
+        
+        // data.json ab object hai, usme lastSync aur items hain
+        let dataObj = await fetch('data.json?t=' + d).then(r => r.json());
+        let dataRes = dataObj.items; // Yahan se items array milega
+        let lastSyncTime = dataObj.lastSync; // Yahan server ka time milega
+        
+        let [vendorRes, orderRes] = await Promise.all([
+            fetch('vendors.json?t=' + d).then(r => r.json()),
+            fetch('order.json?t=' + d).then(r => r.json())
         ]);
         
         let itemMap = new Map();
@@ -106,29 +112,28 @@ async function fullLoad() {
         for (let item of dataRes) if (!placedBcs.has(item.bc)) allData.push(item);
         for (let vendor of vendorRes) if (!placedBcs.has(vendor.bc)) allData.push({bc: vendor.bc, nm: vendor.nm, inv:0, sale:0, dmd:0, days:999, rate:0, tp:0});
         
-        // Aapke purane logic ke hisaab se filteredData mein allData daal diya
         filteredData = [...allData];
         doSearch();
         
-        setOnline(true, 'Server Online (Synced: ' + new Date().toLocaleTimeString() + ')');
+        // Yahan GitHub wala actual time show hoga
+        setOnline(true, 'Server Online (Data Synced: ' + lastSyncTime + ')');
         isInitialLoad = false;
     } catch(e) {
         setOnline(false, 'Server Offline');
     }
 }
 
-/* ===== SEARCH LOGIC (Aapka Original) ===== */
+/* ===== SEARCH LOGIC ===== */
 function handleSearchKey(event){
     if(event.key==='Enter'){
         event.preventDefault();
-        performSearchJump(); // Enter dabate hi item jump karega
+        performSearchJump();
     } else if(event.key==='Escape'){
         searchInput.value='';
         selectedRowId=null;
         doSearch();
         setOnline(true, 'Search cleared');
     }
-    // Type karte waqt table filter nahi hoga, poora page waise hi rahega
 }
 
 function performSearchJump(){
@@ -168,7 +173,6 @@ function selectAndScrollToTop(viewIdx){
             let thH=th?th.offsetHeight:40;
             let rR=row.getBoundingClientRect();
             let cR=sc.getBoundingClientRect();
-            // Yahan item uper/neche scroll hota hai
             sc.scrollTo({top:(rR.top-cR.top)+sc.scrollTop-thH-5,behavior:'smooth'});
         }
     },50);
@@ -177,13 +181,12 @@ function selectAndScrollToTop(viewIdx){
 
 /* ===== DISPLAY ROWS (Smooth Background Update) ===== */
 function doSearch(){
-    // Search filter yahan nahi ho raha, poori list displayRows mein jayegi
     displayRows();
 }
 
 function displayRows() {
     let h = '';
-    let currentScroll = document.getElementById('tableSection').scrollTop; // Scroll position yaad rakho
+    let currentScroll = document.getElementById('tableSection').scrollTop;
 
     for(let i=0; i<filteredData.length; i++){
         let r = filteredData[i];
@@ -215,12 +218,10 @@ function displayRows() {
         h = '<tr><td colspan="8" style="text-align:center;">No data found</td></tr>';
     }
     
-    // Agar pehli dafa load ho raha hai ya search ho raha hai, toh poora table replace karo
     if (isInitialLoad) {
         tbody.innerHTML = h;
         document.getElementById('tableSection').scrollTop = currentScroll;
     } else {
-        // Background silent update: Sirf rows ke andar ka data change karo, table mat hilo
         let currentRows = tbody.querySelectorAll('tr');
         let newRows = new DOMParser().parseFromString('<table><tbody>' + h + '</tbody></table>', 'text/html').body.querySelectorAll('tr');
         
@@ -231,7 +232,7 @@ function displayRows() {
                 }
             }
         } else {
-            tbody.innerHTML = h; // Agar rows kam zyada hui toh poora replace kardo
+            tbody.innerHTML = h;
         }
     }
 }
@@ -246,10 +247,8 @@ function selectRowByClick(bc){
 /* ===== INITIALIZATION ===== */
 fullLoad();
 
-// Background Sync Timer
 let syncInterval = setInterval(fullLoad, 30000); // 30 seconds
 
-// Agar user doosre tab par chala gaya hai, toh background sync ruk jayega
 document.addEventListener('visibilitychange', function() {
     if (document.hidden) {
         clearInterval(syncInterval);
