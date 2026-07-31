@@ -67,26 +67,19 @@ function setOnline(isOnline, customMsg = '') {
     }
 }
 
-/* ===== DATA FETCH FROM GITHUB (3 FILES) ===== */
+/* ===== DATA FETCH FROM GITHUB (FAST LOAD) ===== */
 async function fullLoad() {
-    if (!isInitialLoad) {
-        statusText.innerText = 'Updating background...';
-        statusText.className = '';
-        statusDot.className = 'live-dot dot-offline';
-    }
-    
     try {
         let d = new Date().getTime(); // Cache busting
         
-        // data.json ab object hai, usme lastSync aur items hain
+        // Sab se pehle data.json uthao jisme items aur lastSync time dono hain
         let dataObj = await fetch('data.json?t=' + d).then(r => r.json());
-        let dataRes = dataObj.items; // Yahan se items array milega
-        let lastSyncTime = dataObj.lastSync; // Yahan server ka time milega
+        let dataRes = dataObj.items; 
+        let lastSyncTime = dataObj.lastSync; 
         
-        let [vendorRes, orderRes] = await Promise.all([
-            fetch('vendors.json?t=' + d).then(r => r.json()),
-            fetch('order.json?t=' + d).then(r => r.json())
-        ]);
+        // Phir baki files uthao
+        let vendorRes = await fetch('vendors.json?t=' + d).then(r => r.json()).catch(() => []);
+        let orderRes = await fetch('order.json?t=' + d).then(r => r.json()).catch(() => []);
         
         let itemMap = new Map();
         for (let item of dataRes) itemMap.set(item.bc, item);
@@ -115,8 +108,13 @@ async function fullLoad() {
         filteredData = [...allData];
         doSearch();
         
-        // Yahan GitHub wala actual time show hoga
-        setOnline(true, 'Server Online (Data Synced: ' + lastSyncTime + ')');
+        // Yahan sirf GitHub wala server time aayega, 30 seconds wala local time nahi
+        if(lastSyncTime) {
+            setOnline(true, 'Server Online (Data Synced: ' + lastSyncTime + ')');
+        } else {
+            setOnline(true, 'Server Online');
+        }
+        
         isInitialLoad = false;
     } catch(e) {
         setOnline(false, 'Server Offline');
@@ -245,16 +243,16 @@ function selectRowByClick(bc){
 }
 
 /* ===== INITIALIZATION ===== */
-fullLoad();
+fullLoad(); // Page open hote hi turant data uthayega
 
-let syncInterval = setInterval(fullLoad, 30000); // 30 seconds
+let syncInterval = setInterval(fullLoad, 30000); // Background mein 30 seconds baad uthayega
 
 document.addEventListener('visibilitychange', function() {
     if (document.hidden) {
         clearInterval(syncInterval);
     } else {
         syncInterval = setInterval(fullLoad, 30000);
-        fullLoad();
+        fullLoad(); // Wapas tab par aaye toh turant uthayega
     }
 });
 </script></body></html>
