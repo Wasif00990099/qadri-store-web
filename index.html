@@ -20,7 +20,11 @@ td{padding:10px;text-align:center;border:1px solid #000;font-size:13px}
 tr{cursor:pointer;transition:background 0.2s}tr:hover{background:#f8f9fa}tr.row-selected{outline:5px solid #0055FF !important;outline-offset:-5px;background:#e8f4fc !important}
 .c-barcode{background:#FFD700;color:#000;font-weight:bold}.c-name{background:#FFFFFF;color:#000;text-align:center;font-weight:500}.c-inv{background:#32CD32;color:#000;font-weight:bold}.c-sale{background:#FFB6C1;color:#000;font-weight:bold}.c-dmd-neg{background:#800080;color:#FFFFFF;font-weight:bold}.c-dmd-pos{background:#FFFFFF;color:#000;font-weight:bold}.c-days-alert{background:#FF0000;color:#FFFFFF;font-weight:bold}.c-days-ok{background:#FFFFFF;color:#000}.c-default{background:#FFFFFF;color:#000}
 .c-vendor-row{background:#006400 !important;color:white !important;cursor:default !important}.c-vendor-name{background:#006400 !important;color:white !important;text-align:center !important;font-weight:bold;font-size:16px;padding:12px;outline:none;user-select:none}
-.status-bar{padding:10px;text-align:center;font-size:12px;color:#7f8c8d;background:#fff;border-top:1px solid #eee;position:fixed;bottom:0;width:100%;display:flex;justify-content:center;align-items:center;gap:10px;z-index:101;box-shadow:0 -2px 10px rgba(0,0,0,0.1)}.live-dot{width:8px;height:8px;background:#27ae60;border-radius:50%;animation:pulse 2s infinite}@keyframes pulse{0%{opacity:1}50%{opacity:0.3}100%{opacity:1}}
+.status-bar{padding:10px;text-align:center;font-size:14px;font-weight:bold;color:#7f8c8d;background:#fff;border-top:1px solid #eee;position:fixed;bottom:0;width:100%;display:flex;justify-content:center;align-items:center;gap:10px;z-index:101;box-shadow:0 -2px 10px rgba(0,0,0,0.1)}
+.live-dot{width:10px;height:10px;border-radius:50%;animation:pulse 2s infinite}
+.dot-online{background:#27ae60}.dot-offline{background:#e74c3c}
+.text-online{color:#27ae60}.text-offline{color:#e74c3c}
+@keyframes pulse{0%{opacity:1}50%{opacity:0.3}100%{opacity:1}}
 @media(max-width:768px){.navbar h2{font-size:14px}.nav-center input{max-width:200px;padding:8px 10px;font-size:14px}}
 </style>
 </head><body>
@@ -36,20 +40,42 @@ tr{cursor:pointer;transition:background 0.2s}tr:hover{background:#f8f9fa}tr.row-
 <tbody id='body'></tbody></table>
 </div>
 </div>
-<div class='status-bar'><span id='status'>Connecting...</span><div class='live-dot'></div></div>
+<div class='status-bar'>
+    <span id='statusText'>Connecting...</span>
+    <div class='live-dot dot-offline' id='statusDot'></div>
+</div>
 <script>
 let allData=[];
 let filteredData=[];
 let selectedRowId=null;
+let isInitialLoad = true; // Pehli dafa table poora banega, baad mein sirf numbers update honge
 const tbody=document.getElementById('body');
 const searchInput=document.getElementById('search');
-const statusDiv=document.getElementById('status');
+const statusText=document.getElementById('statusText');
+const statusDot=document.getElementById('statusDot');
+
+/* ===== Helper function to set status ===== */
+function setOnline(isOnline, customMsg = '') {
+    if (isOnline) {
+        statusText.innerText = customMsg || 'Server Online';
+        statusText.className = 'text-online';
+        statusDot.className = 'live-dot dot-online';
+    } else {
+        statusText.innerText = customMsg || 'Server Offline';
+        statusText.className = 'text-offline';
+        statusDot.className = 'live-dot dot-offline';
+    }
+}
 
 /* ===== DATA FETCH FROM GITHUB (3 FILES) ===== */
 async function fullLoad() {
-    statusDiv.innerText = 'Loading data from GitHub...';
+    if (!isInitialLoad) {
+        statusText.innerText = 'Updating background...';
+        statusText.className = '';
+        statusDot.className = 'live-dot dot-offline';
+    }
+    
     try {
-        // 3no files ko ek sath fetch kar rahe hain
         let [dataRes, vendorRes, orderRes] = await Promise.all([
             fetch('data.json?cache=' + new Date().getTime()).then(r => r.json()),
             fetch('vendors.json?cache=' + new Date().getTime()).then(r => r.json()),
@@ -62,7 +88,6 @@ async function fullLoad() {
         allData = [];
         let placedBcs = new Set();
         
-        // Pehle order.json ke hisaab se rows set karenge
         for (let bc of orderRes) {
             if (bc.startsWith("VENDOR_")) {
                 let vendor = vendorRes.find(v => v.bc === bc);
@@ -78,15 +103,15 @@ async function fullLoad() {
             }
         }
         
-        // Jo items order mein nahi hain unko end par add karenge
         for (let item of dataRes) if (!placedBcs.has(item.bc)) allData.push(item);
         for (let vendor of vendorRes) if (!placedBcs.has(vendor.bc)) allData.push({bc: vendor.bc, nm: vendor.nm, inv:0, sale:0, dmd:0, days:999, rate:0, tp:0});
         
-        filteredData = [...allData];
-        doSearch();
-        statusDiv.innerText = 'Last Synced: ' + new Date().toLocaleTimeString();
+        doSearch(); // Data process karke table update karega
+        
+        setOnline(true, 'Server Online (Synced: ' + new Date().toLocaleTimeString() + ')');
+        isInitialLoad = false; // Pehli load complete ho gayi
     } catch(e) {
-        statusDiv.innerText = 'Error: ' + e.message + '. Wait for server to sync.';
+        setOnline(false, 'Server Offline');
     }
 }
 
@@ -99,9 +124,8 @@ function handleSearchKey(event){
         searchInput.value='';
         selectedRowId=null;
         doSearch();
-        statusDiv.innerText='Search cleared';
+        setOnline(true, 'Search cleared');
     }
-    // Note: Yahan 'else { doSearch(); }' hata diya hai taake type karte waqt table filter na ho.
 }
 
 function performSearchJump(){
@@ -126,7 +150,7 @@ function performSearchJump(){
             return;
         }
     }
-    statusDiv.innerText='No match found for: '+query;
+    setOnline(true, 'No match found for: '+query);
 }
 
 function selectAndScrollToTop(viewIdx){
@@ -144,33 +168,39 @@ function selectAndScrollToTop(viewIdx){
             sc.scrollTo({top:(rR.top-cR.top)+sc.scrollTop-thH-5,behavior:'smooth'});
         }
     },50);
-    statusDiv.innerText='Match found at row '+(viewIdx+1);
+    setOnline(true, 'Match found at row '+(viewIdx+1));
 }
 
-/* ===== DISPLAY ROWS WITH VENDORS ===== */
+/* ===== DISPLAY ROWS (SMOOTH UPDATER) ===== */
 function doSearch(){
     let q = searchInput.value.toLowerCase();
-    filteredData = allData.filter(i => i.nm.toLowerCase().includes(q) || i.bc.includes(q));
+    if(q === '') {
+        filteredData = [...allData];
+    } else {
+        filteredData = allData.filter(i => i.nm.toLowerCase().includes(q) || i.bc.includes(q));
+    }
     displayRows();
 }
 
-function displayRows(){
-    let h='';
-    for(let i=0;i<filteredData.length;i++){
-        let r=filteredData[i];
-        let s=(selectedRowId===r.bc)?' row-selected':'';
+function displayRows() {
+    let h = '';
+    let currentScroll = document.getElementById('tableSection').scrollTop; // Scroll position yaad rakho
+
+    for(let i=0; i<filteredData.length; i++){
+        let r = filteredData[i];
+        let s = (selectedRowId === r.bc) ? ' row-selected' : '';
         
         if(r.bc.startsWith('VENDOR_')){
-            h+=`<tr class='c-vendor-row' data-row-id='${r.bc}'>`+
-               `<td></td><td class='c-vendor-name'>${r.nm}</td><td></td><td></td><td></td><td></td><td></td><td></td>`+
-               `</tr>`;
+            h += `<tr class='c-vendor-row' data-row-id='${r.bc}'>`+
+                 `<td></td><td class='c-vendor-name'>${r.nm}</td><td></td><td></td><td></td><td></td><td></td><td></td>`+
+                 `</tr>`;
             continue;
         }
         
         let dC = parseFloat(r.dmd) < 0 ? 'c-dmd-neg' : 'c-dmd-pos';
         let dyC = (parseFloat(r.days) <= 15 && parseFloat(r.days) != 999) ? 'c-days-alert' : 'c-days-ok';
         
-        h+=`<tr class='${s}' data-row-id='${r.bc}' onclick="selectRowByClick('${r.bc}')">`+
+        h += `<tr class='${s}' data-row-id='${r.bc}' onclick="selectRowByClick('${r.bc}')">`+
         `<td class='c-barcode'>${r.bc}</td>`+
         `<td class='c-name'>${r.nm}</td>`+
         `<td class='c-inv'>${r.inv}</td>`+
@@ -181,20 +211,48 @@ function displayRows(){
         `<td class='c-default'>${r.tp}</td>`+
         `</tr>`;
     }
+    
     if(filteredData.length === 0){
         h = '<tr><td colspan="8" style="text-align:center;">No data found</td></tr>';
     }
-    tbody.innerHTML=h;
+    
+    // Agar pehli dafa load ho raha hai ya search ho raha hai, toh poora table replace karo
+    if (isInitialLoad || searchInput.value !== '') {
+        tbody.innerHTML = h;
+        document.getElementById('tableSection').scrollTop = currentScroll; // Wapas usi par scroll rakho
+    } else {
+        // Background silent update: Sirf rows ke andar ka data change karo, table mat hilo
+        let currentRows = tbody.querySelectorAll('tr');
+        let newRows = new DOMParser().parseFromString('<table><tbody>' + h + '</tbody></table>', 'text/html').body.querySelectorAll('tr');
+        
+        for (let i = 0; i < currentRows.length; i++) {
+            if (currentRows[i].outerHTML !== newRows[i].outerHTML) {
+                currentRows[i].replaceWith(newRows[i]); // Sirf changed row ko update karo
+            }
+        }
+    }
 }
 
 /* ===== ROW CLICK TO FOCUS ===== */
 function selectRowByClick(bc){
     selectedRowId = bc;
-    displayRows(); // Row ko highlight karne ke liye table re-render karega
-    statusDiv.innerText='Row selected: ' + bc;
+    displayRows();
+    setOnline(true, 'Row selected: ' + bc);
 }
 
 /* ===== INITIALIZATION ===== */
 fullLoad();
-setInterval(fullLoad, 120000); // Har 2 minute baad data update hoga
+
+// Background Sync Timer
+let syncInterval = setInterval(fullLoad, 30000); // 30 seconds
+
+// Agar user doosre tab par chala gaya hai, toh background sync ruk jayega (RAM/CPU bachane ke liye)
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+        clearInterval(syncInterval); // Tab chhupa hua hai, sync band karo
+    } else {
+        syncInterval = setInterval(fullLoad, 30000); // Wapas aaya, sync dobara chalu karo
+        fullLoad(); // Aur turant ek dafa update kar lo
+    }
+});
 </script></body></html>
