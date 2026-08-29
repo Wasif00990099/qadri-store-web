@@ -9,8 +9,7 @@
         body { background: #f4f6f9; }
 
         /* --- DASHBOARD STYLES --- */
-        /* FIX: display:flex yahan se HATA diya, warna .view { display:none } kabhi kaam nahi karta tha */
-        #dashboard-view { height: 100vh; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+        #dashboard-view { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
         .header { text-align: center; margin-bottom: 40px; }
         .header h1 { color: #2c3e50; font-size: 28px; margin-bottom: 5px; }
         .header p { color: #7f8c8d; font-size: 14px; }
@@ -24,10 +23,10 @@
         .text-box h2 { color: #2c3e50; font-size: 20px; margin-bottom: 5px; }
         .text-box p { color: #95a5a6; font-size: 13px; }
 
-        /* --- VIEW MANAGEMENT (PERMANENT FIX: !important ke saath - ab kuch bhi override nahi kar sakta) --- */
-        .view { display: none !important; }
-        .view.active { display: block !important; }
-        #dashboard-view.active { display: flex !important; }
+        /* --- VIEW MANAGEMENT --- */
+        .view { display: none; }
+        .view.active { display: block; }
+        #dashboard-view.active { display: flex; }
 
         /* --- STOCK STYLES --- */
         .navbar { background: white; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; gap: 10px; }
@@ -184,38 +183,17 @@
         let cart = []; 
         let currentModalItems = [];
         let isLocal = window.location.hostname.includes("localhost") || window.location.hostname.includes("127.0.0.1");
-        let dataUrl = isLocal ? '/data' : `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/data.json?t=${new Date().getTime()}`;
+        let dataUrl = isLocal ? '/data' : `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/data.json?nocache=${Date.now()}`;
         let saveUrl = isLocal ? '/pos/save' : `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/new_invoice.json`;
-        let pullInvUrl = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/new_invoice.json?t=${new Date().getTime()}`;
+        let pullInvUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/new_invoice.json`;
 
-        // --- VIEW MANAGEMENT (PERMANENT FIX) ---
+        // --- VIEW MANAGEMENT (Auto Scroll Up Fix) ---
         function showView(viewId) {
-            // Step 1: Sab views ko chhupao (purana for loop - har browser mein chalega)
-            var allViews = document.querySelectorAll('.view');
-            for (var i = 0; i < allViews.length; i++) {
-                allViews[i].classList.remove('active');
-            }
-            
-            // Step 2: Naya view active karo
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
-            
-            // Step 3: Page FORAN top par scroll karo (3 tareeqay - mobile browsers ke liye)
-            window.scrollTo(0, 0);
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
-            
-            // Step 4: View ke hisaab se extra kaam
-            if (viewId === 'pos-view') {
-                setTimeout(function() {
-                    window.scrollTo(0, 0); // Keyboard khulne se pehle dobara top par
-                    document.getElementById('barcode-input').focus();
-                }, 100);
-            }
-            if (viewId === 'stock-view') {
-                var ts = document.getElementById('tableSection');
-                if (ts) ts.scrollTop = 0; // Table ka andar wala scroll bhi top par
-                fullLoad(); // Reload stock when opened
-            }
+            window.scrollTo(0, 0); // Yeh line window ko foran upar le aayegi
+            if (viewId === 'pos-view') setTimeout(() => document.getElementById('barcode-input').focus(), 100);
+            if (viewId === 'stock-view') fullLoad(); // Reload stock when opened
         }
 
         // ==========================================
@@ -242,12 +220,14 @@
 
         async function fullLoad() {
             try {
+                // Cache busting taa-ke hamesha naya data aaye
+                let d = new Date().getTime();
                 let dataObj = await fetch(dataUrl, {cache: 'no-store'}).then(r => r.json());
                 let dataRes = isLocal ? dataObj : dataObj.items; 
                 let lastSyncTime = isLocal ? new Date().toLocaleTimeString() : dataObj.lastSync; 
                 
-                let vendorRes = await fetch(`vendors.json?t=${new Date().getTime()}`, {cache: 'no-store'}).then(r => r.json()).catch(() => []);
-                let orderRes = await fetch(`order.json?t=${new Date().getTime()}`, {cache: 'no-store'}).then(r => r.json()).catch(() => []);
+                let vendorRes = await fetch(`vendors.json?nocache=${d}`, {cache: 'no-store'}).then(r => r.json()).catch(() => []);
+                let orderRes = await fetch(`order.json?nocache=${d}`, {cache: 'no-store'}).then(r => r.json()).catch(() => []);
                 
                 let itemMap = new Map();
                 for (let item of dataRes) itemMap.set(item.bc, item);
@@ -406,18 +386,40 @@
                 } catch (error) { alert('Error saving invoice!'); }
             } else {
                 try {
+                    // 1. Pehle GitHub se current file aur uski SHA download karein
                     const res = await fetch(pullInvUrl);
-                    let oldInvoices = await res.json();
-                    if (!Array.isArray(oldInvoices)) oldInvoices = [];
+                    if (!res.ok) throw new Error('Failed to fetch existing invoices');
+                    const fileData = await res.json();
+                    const fileSha = fileData.sha;
+                    
+                    // 2. Purani invoices decode karein
+                    let oldInvoices = [];
+                    if (fileData.content) {
+                        try {
+                            let decodedContent = atob(fileData.content.replace(/\n/g, ''));
+                            oldInvoices = JSON.parse(decodedContent);
+                            if (!Array.isArray(oldInvoices)) oldInvoices = [];
+                        } catch(e) { oldInvoices = []; }
+                    }
+
+                    // 3. Naya invoice banayein
                     const newInvoice = { date: new Date().toISOString(), total: cart.reduce((sum, c) => sum + (c.rate * c.qty), 0).toString(), items: cart };
                     oldInvoices.push(newInvoice);
+
+                    // 4. GitHub par SHA ke sath update karein (Yeh JSON error fix karega)
                     const apiRes = await fetch(saveUrl, {
                         method: 'PUT',
                         headers: { Authorization: `token ${TOKEN}`, 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ message: "New Invoice Saved from Web", content: btoa(JSON.stringify(oldInvoices, null, 2)), branch: "main" })
+                        body: JSON.stringify({ 
+                            message: "New Invoice Saved from Web", 
+                            content: btoa(JSON.stringify(oldInvoices, null, 2)), 
+                            sha: fileSha, 
+                            branch: "main" 
+                        })
                     });
+
                     if (apiRes.ok) { cart = []; updateCartUI(); showToast('Saved! PC sync in 2 mins.'); } 
-                    else { alert('GitHub Save Error!'); }
+                    else { alert('GitHub Save Error! Check Token'); }
                 } catch (e) { alert("Error: " + e.message); }
             }
         }
@@ -429,6 +431,11 @@
             fetch('/data').then(r => r.json()).then(data => { allData = data; }).catch(e => console.error(e));
         } else {
             fetch(dataUrl).then(r => r.json()).then(data => { allData = data.items || []; }).catch(e => console.error(e));
+            // Har 2 minute me data wapas fetch ho taa-ke time update ho
+            setInterval(() => { 
+                fetch(`https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/main/data.json?nocache=${Date.now()}`)
+                .then(r => r.json()).then(data => { allData = data.items || []; });
+            }, 120000);
         }
     </script>
 </body>
