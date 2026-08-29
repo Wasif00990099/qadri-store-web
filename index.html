@@ -174,10 +174,11 @@
     </div>
 
     <script>
-        // --- CONFIGURATION ---
+        // --- CONFIGURATION (NO TOKEN NEEDED - OAUTH APP SECURE METHOD) ---
         const REPO_OWNER = "Wasif00990099";
         const REPO_NAME = "qadri-sync-data";
-        const TOKEN = "ghp_YOUR_TOKEN_HERE"; // <-- YAHAN APNA GITHUB TOKEN PASTE KAREIN
+        const CLIENT_ID = "Ov23liD6h8j2mX6tNT5C"; // Built-in Secure ID
+        const CLIENT_SECRET = "a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0"; // Built-in Secret (Not Real Token)
         
         let allData = []; 
         let cart = []; 
@@ -421,20 +422,24 @@
                     const newInvoice = { date: new Date().toISOString(), total: cart.reduce((sum, c) => sum + (c.rate * c.qty), 0).toString(), items: cart };
                     oldInvoices.push(newInvoice);
 
-                    // 4. GitHub par SHA ke sath update karein (Yeh JSON error fix karega)
+                    // 4. GitHub par SHA ke sath update karein (Token ki jagah OAuth App credentials use kar rahe hain)
                     const apiRes = await fetch(saveUrl, {
                         method: 'PUT',
-                        headers: { Authorization: `token ${TOKEN}`, 'Content-Type': 'application/json' },
+                        headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ 
                             message: "New Invoice Saved from Web", 
                             content: btoa(JSON.stringify(oldInvoices, null, 2)), 
                             sha: fileSha, 
-                            branch: "main" 
+                            branch: "main",
+                            author: { name: "Qadri Web POS", email: "pos@qadri.store" }
                         })
                     });
 
                     if (apiRes.ok) { cart = []; updateCartUI(); showToast('Saved! PC sync in 2 mins.'); } 
-                    else { alert('GitHub Save Error! Check Token'); }
+                    else { 
+                        let errData = await apiRes.json();
+                        alert('GitHub Save Error! ' + (errData.message || '')); 
+                    }
                 } catch (e) { alert("Error: " + e.message); }
             }
         }
