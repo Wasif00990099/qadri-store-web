@@ -9,7 +9,7 @@
         body { background: #f4f6f9; }
 
         /* --- DASHBOARD STYLES --- */
-        #dashboard-view { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+        #dashboard-view { height: 100vh; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
         .header { text-align: center; margin-bottom: 40px; }
         .header h1 { color: #2c3e50; font-size: 28px; margin-bottom: 5px; }
         .header p { color: #7f8c8d; font-size: 14px; }
@@ -24,9 +24,9 @@
         .text-box p { color: #95a5a6; font-size: 13px; }
 
         /* --- VIEW MANAGEMENT --- */
-        .view { display: none; }
-        .view.active { display: block; }
-        #dashboard-view.active { display: flex; }
+        .view { display: none !important; }
+        .view.active { display: block !important; }
+        #dashboard-view.active { display: flex !important; }
 
         /* --- STOCK STYLES --- */
         .navbar { background: white; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; gap: 10px; }
@@ -187,13 +187,29 @@
         let saveUrl = isLocal ? '/pos/save' : `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/new_invoice.json`;
         let pullInvUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/new_invoice.json`;
 
-        // --- VIEW MANAGEMENT (Auto Scroll Up Fix) ---
+        // --- VIEW MANAGEMENT (PERMANENT FIX) ---
         function showView(viewId) {
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            var allViews = document.querySelectorAll('.view');
+            for (var i = 0; i < allViews.length; i++) {
+                allViews[i].classList.remove('active');
+            }
             document.getElementById(viewId).classList.add('active');
-            window.scrollTo(0, 0); // Yeh line window ko foran upar le aayegi
-            if (viewId === 'pos-view') setTimeout(() => document.getElementById('barcode-input').focus(), 100);
-            if (viewId === 'stock-view') fullLoad(); // Reload stock when opened
+            
+            window.scrollTo(0, 0);
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+            
+            if (viewId === 'pos-view') {
+                setTimeout(function() {
+                    window.scrollTo(0, 0);
+                    document.getElementById('barcode-input').focus();
+                }, 100);
+            }
+            if (viewId === 'stock-view') {
+                var ts = document.getElementById('tableSection');
+                if (ts) ts.scrollTop = 0;
+                fullLoad(); 
+            }
         }
 
         // ==========================================
@@ -220,7 +236,6 @@
 
         async function fullLoad() {
             try {
-                // Cache busting taa-ke hamesha naya data aaye
                 let d = new Date().getTime();
                 let dataObj = await fetch(dataUrl, {cache: 'no-store'}).then(r => r.json());
                 let dataRes = isLocal ? dataObj : dataObj.items; 
