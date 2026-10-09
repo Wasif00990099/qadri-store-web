@@ -1,0 +1,15 @@
+Main-Class: QadriStore
+Class-Path: lib/mssql-jdbc-13.2.1.jre8.jar
+
+
+
+cd /d D:\Excel
+
+
+
+javac -encoding UTF-8 -cp ".;lib\mssql-jdbc-13.2.1.jre8.jar" QadriStore.java
+
+
+
+
+jar cfm QadriStore.jar Manifest.txt *.class

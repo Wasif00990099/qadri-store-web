@@ -1,0 +1,16 @@
+jre/
+tessdata/
+*.class
+inventory_cache.json
+invoices_history.txt
+sales_data.txt
+QadriStock_Vendors.cfg
+QadriStock_Order.cfgjdk-25_windows-x64_bin.exe
+*.exe
+*.jar
+*.pdf
+*.dat
+*.png
+*.log
+*.zip
+tessdata/

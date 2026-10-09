@@ -1,0 +1,45 @@
+
+============================================
+  RUN TIME: Mon 04/20/2026 10:38:17.51
+  FOLDER: D:\Excel
+  SCRIPT: qadristore.py
+============================================
+Traceback (most recent call last):
+  File "D:\Excel\qadristore.py", line 20, in <module>
+    print("\U0001f680 Cloudflare tunnel start ho rahi hai...")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f680' in position 0: character maps to <undefined>
+[FAILED] Error code: 1 at 10:38:18.45 
+============================================ 
+
+============================================
+  RUN TIME: Mon 04/20/2026 10:38:22.22
+  FOLDER: D:\Excel
+  SCRIPT: qadristore.py
+============================================
+Traceback (most recent call last):
+  File "D:\Excel\qadristore.py", line 20, in <module>
+    print("\U0001f680 Cloudflare tunnel start ho rahi hai...")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f680' in position 0: character maps to <undefined>
+[FAILED] Error code: 1 at 10:38:22.61 
+============================================ 
+
+============================================
+  RUN TIME: Mon 04/20/2026 10:39:40.86
+  FOLDER: D:\Excel
+  SCRIPT: qadristore.py
+============================================
+
+============================================
+  RUN TIME: Mon 04/20/2026 10:39:42.01
+  FOLDER: D:\Excel
+  SCRIPT: qadristore.py
+============================================
+[Mon 04/20/2026 10:39:53.67] Exit Code: 0 

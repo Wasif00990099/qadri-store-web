@@ -1,0 +1,645 @@
+[2026-04-24 10:20:33] ============================================================
+[2026-04-24 10:20:33] 🚀 CLOUDFLARE TUNNEL STARTING
+[2026-04-24 10:20:33] ============================================================
+[2026-04-24 10:20:33] Script Location: D:\Excel\QadriStore.py
+[2026-04-24 10:20:33] Working Directory: D:\Excel
+[2026-04-24 10:20:33] Python Executable: C:\Python314\python.exe
+[2026-04-24 10:20:33] Local Port: 8080
+[2026-04-24 10:20:33] 
+📁 Checking files...
+[2026-04-24 10:20:33] Script dir exists: True
+[2026-04-24 10:20:33] Log file will be: D:\Excel\debug_log.txt
+[2026-04-24 10:20:33] 
+🔍 Looking for cloudflared...
+[2026-04-24 10:20:33]    Checking: D:\Excel\cloudflared.exe
+[2026-04-24 10:20:33]    Checking: C:\Program Files\cloudflared\cloudflared.exe
+[2026-04-24 10:20:33]    Checking: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-24 10:20:33] ✅ Using: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-24 10:20:33] 
+📋 Command: C:\Program Files (x86)\cloudflared\cloudflared.exe tunnel --url http://localhost:8080
+[2026-04-24 10:20:33] 
+⏳ Starting Cloudflare process...
+[2026-04-24 10:20:33] ✅ Process Started! PID: 7292
+[2026-04-24 10:20:33] Waiting for tunnel URL...
+
+[2026-04-24 10:20:33] [CF] 2026-04-24T05:20:33Z INF Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps
+[2026-04-24 10:20:33] [CF] 2026-04-24T05:20:33Z INF Requesting new quick Tunnel on trycloudflare.com...
+[2026-04-24 10:20:36] [CF] 2026-04-24T05:20:36Z INF +--------------------------------------------------------------------------------------------+
+[2026-04-24 10:20:36] [CF] 2026-04-24T05:20:36Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |
+[2026-04-24 10:20:36] [CF] 2026-04-24T05:20:36Z INF |  https://reviewing-committed-beef-secondary.trycloudflare.com                              |
+[2026-04-24 10:20:36] 
+============================================================
+[2026-04-24 10:20:36] 🎉 TUNNEL URL FOUND!
+[2026-04-24 10:20:36] ============================================================
+[2026-04-24 10:20:36] 
+📡 Updating Firebase with URL: https://reviewing-committed-beef-secondary.trycloudflare.com
+[2026-04-24 10:20:37] ✅ SUCCESS! Firebase updated!
+[2026-04-24 10:20:37] 🔗 Live Link: https://reviewing-committed-beef-secondary.trycloudflare.com
+[2026-04-24 10:20:37] ⚙️ Tunnel is running...
+[2026-04-24 10:20:37] [CF] 2026-04-24T05:20:36Z INF +--------------------------------------------------------------------------------------------+
+[2026-04-24 10:20:37] [CF] 2026-04-24T05:20:36Z INF Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp]
+[2026-04-24 10:20:37] [CF] 2026-04-24T05:20:36Z INF Version 2026.3.0 (Checksum 59b12880b24af581cf5b1013db601c7d843b9b097e9c78aa5957c7f39f741885)
+[2026-04-24 10:20:37] [CF] 2026-04-24T05:20:36Z INF GOOS: windows, GOVersion: go1.24.13, GoArch: amd64
+[2026-04-24 10:20:37] [CF] 2026-04-24T05:20:36Z INF Settings: map[ha-connections:1 protocol:quic url:http://localhost:8080]
+[2026-04-24 10:20:37] [CF] 2026-04-24T05:20:36Z INF cloudflared will not automatically update on Windows systems.
+[2026-04-24 10:20:37] [CF] 2026-04-24T05:20:37Z INF Generated Connector ID: 9a0cd145-0403-4742-b7a9-82f13d677a86
+[2026-04-24 10:20:37] [CF] 2026-04-24T05:20:37Z INF Initial protocol quic
+[2026-04-24 10:20:37] [CF] 2026-04-24T05:20:37Z INF ICMP proxy will use 192.168.100.57 as source for IPv4
+[2026-04-24 10:20:37] [CF] 2026-04-24T05:20:37Z INF ICMP proxy will use fe80::9c30:e4e8:f7c1:3b88 in zone Wi-Fi as source for IPv6
+[2026-04-24 10:20:37] [CF] 2026-04-24T05:20:37Z INF cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool
+[2026-04-24 10:20:37] [CF] 2026-04-24T05:20:37Z INF ICMP proxy will use 192.168.100.57 as source for IPv4
+[2026-04-24 10:20:37] [CF] 2026-04-24T05:20:37Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.200.193
+[2026-04-24 10:20:38] [CF] 2026-04-24T05:20:37Z INF ICMP proxy will use fe80::9c30:e4e8:f7c1:3b88 in zone Wi-Fi as source for IPv6
+[2026-04-24 10:20:38] [CF] 2026-04-24T05:20:37Z INF Starting metrics server on 127.0.0.1:20243/metrics
+[2026-04-24 10:20:38] [CF] 2026-04-24T05:20:37Z INF Registered tunnel connection connIndex=0 connection=639cede8-43aa-4f03-8f9b-de2bb2989e04 event=0 ip=198.41.200.193 location=sin02 protocol=quic
+[2026-04-24 10:20:55] [CF] 2026-04-24T05:20:55Z INF Initiating graceful shutdown due to signal terminated ...
+[2026-04-24 10:20:55] [CF] 2026-04-24T05:20:55Z ERR failed to run the datagram handler error="context canceled" connIndex=0 event=0 ip=198.41.200.193
+[2026-04-24 10:34:52] ============================================================
+[2026-04-24 10:34:52] 🚀 CLOUDFLARE TUNNEL STARTING
+[2026-04-24 10:34:52] ============================================================
+[2026-04-24 10:34:52] Script Location: D:\Excel\QadriStore.py
+[2026-04-24 10:34:52] Working Directory: D:\Excel
+[2026-04-24 10:34:52] Python Executable: C:\Python314\python.exe
+[2026-04-24 10:34:52] Local Port: 8080
+[2026-04-24 10:34:52] 
+📁 Checking files...
+[2026-04-24 10:34:52] Script dir exists: True
+[2026-04-24 10:34:52] Log file will be: D:\Excel\debug_log.txt
+[2026-04-24 10:34:52] 
+🔍 Looking for cloudflared...
+[2026-04-24 10:34:52]    Checking: D:\Excel\cloudflared.exe
+[2026-04-24 10:34:52]    Checking: C:\Program Files\cloudflared\cloudflared.exe
+[2026-04-24 10:34:52]    Checking: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-24 10:34:52] ✅ Using: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-24 10:34:52] 
+📋 Command: C:\Program Files (x86)\cloudflared\cloudflared.exe tunnel --url http://localhost:8080
+[2026-04-24 10:34:52] 
+⏳ Starting Cloudflare process...
+[2026-04-24 10:34:52] ✅ Process Started! PID: 3476
+[2026-04-24 10:34:52] Waiting for tunnel URL...
+
+[2026-04-24 10:34:52] [CF] 2026-04-24T05:34:52Z INF Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps
+[2026-04-24 10:34:52] [CF] 2026-04-24T05:34:52Z INF Requesting new quick Tunnel on trycloudflare.com...
+[2026-04-24 10:34:57] [CF] 2026-04-24T05:34:57Z INF +--------------------------------------------------------------------------------------------+
+[2026-04-24 10:34:57] [CF] 2026-04-24T05:34:57Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |
+[2026-04-24 10:34:57] [CF] 2026-04-24T05:34:57Z INF |  https://racks-ball-recording-tag.trycloudflare.com                                        |
+[2026-04-24 10:34:57] 
+============================================================
+[2026-04-24 10:34:57] 🎉 TUNNEL URL FOUND!
+[2026-04-24 10:34:57] ============================================================
+[2026-04-24 10:34:57] 
+📡 Updating Firebase with URL: https://racks-ball-recording-tag.trycloudflare.com
+[2026-04-24 10:34:58] ✅ SUCCESS! Firebase updated!
+[2026-04-24 10:34:58] 🔗 Live Link: https://racks-ball-recording-tag.trycloudflare.com
+[2026-04-24 10:34:58] ⚙️ Tunnel is running...
+[2026-04-24 10:34:58] [CF] 2026-04-24T05:34:57Z INF +--------------------------------------------------------------------------------------------+
+[2026-04-24 10:34:58] [CF] 2026-04-24T05:34:57Z INF Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp]
+[2026-04-24 10:34:58] [CF] 2026-04-24T05:34:57Z INF Version 2026.3.0 (Checksum 59b12880b24af581cf5b1013db601c7d843b9b097e9c78aa5957c7f39f741885)
+[2026-04-24 10:34:58] [CF] 2026-04-24T05:34:57Z INF GOOS: windows, GOVersion: go1.24.13, GoArch: amd64
+[2026-04-24 10:34:58] [CF] 2026-04-24T05:34:57Z INF Settings: map[ha-connections:1 protocol:quic url:http://localhost:8080]
+[2026-04-24 10:34:58] [CF] 2026-04-24T05:34:57Z INF cloudflared will not automatically update on Windows systems.
+[2026-04-24 10:34:58] [CF] 2026-04-24T05:34:57Z INF Generated Connector ID: 848a71ce-54fa-4a43-b035-be7562b1b737
+[2026-04-24 10:34:58] [CF] 2026-04-24T05:34:58Z INF Initial protocol quic
+[2026-04-24 10:34:58] [CF] 2026-04-24T05:34:58Z INF ICMP proxy will use 192.168.100.57 as source for IPv4
+[2026-04-24 10:34:58] [CF] 2026-04-24T05:34:58Z INF ICMP proxy will use fe80::9c30:e4e8:f7c1:3b88 in zone Wi-Fi as source for IPv6
+[2026-04-24 10:34:58] [CF] 2026-04-24T05:34:58Z INF cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool
+[2026-04-24 10:34:58] [CF] 2026-04-24T05:34:58Z INF ICMP proxy will use 192.168.100.57 as source for IPv4
+[2026-04-24 10:34:58] [CF] 2026-04-24T05:34:58Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.200.233
+[2026-04-24 10:34:58] [CF] 2026-04-24T05:34:58Z INF ICMP proxy will use fe80::9c30:e4e8:f7c1:3b88 in zone Wi-Fi as source for IPv6
+[2026-04-24 10:34:58] [CF] 2026-04-24T05:34:58Z INF Starting metrics server on 127.0.0.1:20243/metrics
+[2026-04-24 10:34:58] [CF] 2026-04-24T05:34:58Z INF Registered tunnel connection connIndex=0 connection=9cff345b-7179-4efc-a6bd-46d19edad6eb event=0 ip=198.41.200.233 location=sin14 protocol=quic
+[2026-04-24 10:55:01] [CF] 2026-04-24T05:55:01Z INF Initiating graceful shutdown due to signal terminated ...
+[2026-04-24 10:55:02] [CF] 2026-04-24T05:55:02Z ERR failed to run the datagram handler error="Application error 0x0 (remote)" connIndex=0 event=0 ip=198.41.200.233
+[2026-04-24 10:57:58] ============================================================
+[2026-04-24 10:57:58] 🚀 CLOUDFLARE TUNNEL STARTING
+[2026-04-24 10:57:58] ============================================================
+[2026-04-24 10:57:58] Script Location: D:\Excel\QadriStore.py
+[2026-04-24 10:57:58] Working Directory: D:\Excel
+[2026-04-24 10:57:58] Python Executable: C:\Python314\python.exe
+[2026-04-24 10:57:58] Local Port: 8080
+[2026-04-24 10:57:58] 
+📁 Checking files...
+[2026-04-24 10:57:58] Script dir exists: True
+[2026-04-24 10:57:58] Log file will be: D:\Excel\debug_log.txt
+[2026-04-24 10:57:58] 
+🔍 Looking for cloudflared...
+[2026-04-24 10:57:58]    Checking: D:\Excel\cloudflared.exe
+[2026-04-24 10:57:58]    Checking: C:\Program Files\cloudflared\cloudflared.exe
+[2026-04-24 10:57:58]    Checking: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-24 10:57:58] ✅ Using: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-24 10:57:58] 
+📋 Command: C:\Program Files (x86)\cloudflared\cloudflared.exe tunnel --url http://localhost:8080
+[2026-04-24 10:57:58] 
+⏳ Starting Cloudflare process...
+[2026-04-24 10:57:58] ✅ Process Started! PID: 1664
+[2026-04-24 10:57:58] Waiting for tunnel URL...
+
+[2026-04-24 10:57:58] [CF] 2026-04-24T05:57:58Z INF Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps
+[2026-04-24 10:57:58] [CF] 2026-04-24T05:57:58Z INF Requesting new quick Tunnel on trycloudflare.com...
+[2026-04-24 10:58:02] [CF] 2026-04-24T05:58:02Z INF +--------------------------------------------------------------------------------------------+
+[2026-04-24 10:58:02] [CF] 2026-04-24T05:58:02Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |
+[2026-04-24 10:58:02] [CF] 2026-04-24T05:58:02Z INF |  https://projection-activists-committees-bearing.trycloudflare.com                         |
+[2026-04-24 10:58:02] 
+============================================================
+[2026-04-24 10:58:02] 🎉 TUNNEL URL FOUND!
+[2026-04-24 10:58:02] ============================================================
+[2026-04-24 10:58:02] 
+📡 Updating Firebase with URL: https://projection-activists-committees-bearing.trycloudflare.com
+[2026-04-24 10:58:03] ✅ SUCCESS! Firebase updated!
+[2026-04-24 10:58:03] 🔗 Live Link: https://projection-activists-committees-bearing.trycloudflare.com
+[2026-04-24 10:58:03] ⚙️ Tunnel is running...
+[2026-04-24 10:58:03] [CF] 2026-04-24T05:58:02Z INF +--------------------------------------------------------------------------------------------+
+[2026-04-24 10:58:03] [CF] 2026-04-24T05:58:02Z INF Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp]
+[2026-04-24 10:58:03] [CF] 2026-04-24T05:58:02Z INF Version 2026.3.0 (Checksum 59b12880b24af581cf5b1013db601c7d843b9b097e9c78aa5957c7f39f741885)
+[2026-04-24 10:58:03] [CF] 2026-04-24T05:58:02Z INF GOOS: windows, GOVersion: go1.24.13, GoArch: amd64
+[2026-04-24 10:58:03] [CF] 2026-04-24T05:58:02Z INF Settings: map[ha-connections:1 protocol:quic url:http://localhost:8080]
+[2026-04-24 10:58:03] [CF] 2026-04-24T05:58:02Z INF cloudflared will not automatically update on Windows systems.
+[2026-04-24 10:58:03] [CF] 2026-04-24T05:58:02Z INF Generated Connector ID: 71218693-eba1-43e8-9259-40f0c1e418bd
+[2026-04-24 10:58:03] [CF] 2026-04-24T05:58:02Z INF Initial protocol quic
+[2026-04-24 10:58:03] [CF] 2026-04-24T05:58:02Z INF ICMP proxy will use 192.168.100.57 as source for IPv4
+[2026-04-24 10:58:03] [CF] 2026-04-24T05:58:02Z INF ICMP proxy will use fe80::9c30:e4e8:f7c1:3b88 in zone Wi-Fi as source for IPv6
+[2026-04-24 10:58:03] [CF] 2026-04-24T05:58:02Z INF cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool
+[2026-04-24 10:58:03] [CF] 2026-04-24T05:58:02Z INF ICMP proxy will use 192.168.100.57 as source for IPv4
+[2026-04-24 10:58:03] [CF] 2026-04-24T05:58:02Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.200.193
+[2026-04-24 10:58:03] [CF] 2026-04-24T05:58:02Z INF ICMP proxy will use fe80::9c30:e4e8:f7c1:3b88 in zone Wi-Fi as source for IPv6
+[2026-04-24 10:58:03] [CF] 2026-04-24T05:58:02Z INF Starting metrics server on 127.0.0.1:20243/metrics
+[2026-04-24 10:58:03] [CF] 2026-04-24T05:58:02Z INF Registered tunnel connection connIndex=0 connection=49086913-26fe-4464-958a-d1aa9e05afd0 event=0 ip=198.41.200.193 location=sin12 protocol=quic
+[2026-04-24 11:06:57] [CF] 2026-04-24T06:06:57Z INF Initiating graceful shutdown due to signal terminated ...
+[2026-04-24 11:06:58] [CF] 2026-04-24T06:06:58Z ERR failed to run the datagram handler error="context canceled" connIndex=0 event=0 ip=198.41.200.193
+[2026-04-24 11:06:58] [CF] 2026-04-24T06:06:58Z ERR failed to serve tunnel connection error="accept stream listener encountered a failure while serving" connIndex=0 event=0 ip=198.41.200.193
+[2026-04-24 11:07:06] ============================================================
+[2026-04-24 11:07:06] 🚀 CLOUDFLARE TUNNEL STARTING
+[2026-04-24 11:07:06] ============================================================
+[2026-04-24 11:07:06] Script Location: D:\Excel\QadriStore.py
+[2026-04-24 11:07:06] Working Directory: D:\Excel
+[2026-04-24 11:07:06] Python Executable: C:\Python314\python.exe
+[2026-04-24 11:07:06] Local Port: 8080
+[2026-04-24 11:07:06] 
+📁 Checking files...
+[2026-04-24 11:07:06] Script dir exists: True
+[2026-04-24 11:07:06] Log file will be: D:\Excel\debug_log.txt
+[2026-04-24 11:07:06] 
+🔍 Looking for cloudflared...
+[2026-04-24 11:07:06]    Checking: D:\Excel\cloudflared.exe
+[2026-04-24 11:07:06]    Checking: C:\Program Files\cloudflared\cloudflared.exe
+[2026-04-24 11:07:06]    Checking: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-24 11:07:06] ✅ Using: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-24 11:07:06] 
+📋 Command: C:\Program Files (x86)\cloudflared\cloudflared.exe tunnel --url http://localhost:8080
+[2026-04-24 11:07:06] 
+⏳ Starting Cloudflare process...
+[2026-04-24 11:07:06] ✅ Process Started! PID: 2524
+[2026-04-24 11:07:06] Waiting for tunnel URL...
+
+[2026-04-24 11:07:06] [CF] 2026-04-24T06:07:06Z INF Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps
+[2026-04-24 11:07:06] [CF] 2026-04-24T06:07:06Z INF Requesting new quick Tunnel on trycloudflare.com...
+[2026-04-24 11:07:09] [CF] 2026-04-24T06:07:09Z INF +--------------------------------------------------------------------------------------------+
+[2026-04-24 11:07:09] [CF] 2026-04-24T06:07:09Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |
+[2026-04-24 11:07:09] [CF] 2026-04-24T06:07:09Z INF |  https://assigned-facilities-judgment-labor.trycloudflare.com                              |
+[2026-04-24 11:07:09] 
+============================================================
+[2026-04-24 11:07:09] 🎉 TUNNEL URL FOUND!
+[2026-04-24 11:07:09] ============================================================
+[2026-04-24 11:07:09] 
+📡 Updating Firebase with URL: https://assigned-facilities-judgment-labor.trycloudflare.com
+[2026-04-24 11:07:11] ✅ SUCCESS! Firebase updated!
+[2026-04-24 11:07:11] 🔗 Live Link: https://assigned-facilities-judgment-labor.trycloudflare.com
+[2026-04-24 11:07:11] ⚙️ Tunnel is running...
+[2026-04-24 11:07:11] [CF] 2026-04-24T06:07:09Z INF +--------------------------------------------------------------------------------------------+
+[2026-04-24 11:07:11] [CF] 2026-04-24T06:07:09Z INF Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp]
+[2026-04-24 11:07:11] [CF] 2026-04-24T06:07:09Z INF Version 2026.3.0 (Checksum 59b12880b24af581cf5b1013db601c7d843b9b097e9c78aa5957c7f39f741885)
+[2026-04-24 11:07:11] [CF] 2026-04-24T06:07:09Z INF GOOS: windows, GOVersion: go1.24.13, GoArch: amd64
+[2026-04-24 11:07:11] [CF] 2026-04-24T06:07:09Z INF Settings: map[ha-connections:1 protocol:quic url:http://localhost:8080]
+[2026-04-24 11:07:11] [CF] 2026-04-24T06:07:09Z INF cloudflared will not automatically update on Windows systems.
+[2026-04-24 11:07:11] [CF] 2026-04-24T06:07:10Z INF Generated Connector ID: e287a5b0-318e-4882-82c3-9036d8dce88d
+[2026-04-24 11:07:11] [CF] 2026-04-24T06:07:10Z INF Initial protocol quic
+[2026-04-24 11:07:11] [CF] 2026-04-24T06:07:10Z INF ICMP proxy will use 192.168.100.57 as source for IPv4
+[2026-04-24 11:07:11] [CF] 2026-04-24T06:07:10Z INF ICMP proxy will use fe80::9c30:e4e8:f7c1:3b88 in zone Wi-Fi as source for IPv6
+[2026-04-24 11:07:11] [CF] 2026-04-24T06:07:10Z INF cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool
+[2026-04-24 11:07:11] [CF] 2026-04-24T06:07:10Z INF ICMP proxy will use 192.168.100.57 as source for IPv4
+[2026-04-24 11:07:11] [CF] 2026-04-24T06:07:10Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.192.7
+[2026-04-24 11:07:11] [CF] 2026-04-24T06:07:10Z INF ICMP proxy will use fe80::9c30:e4e8:f7c1:3b88 in zone Wi-Fi as source for IPv6
+[2026-04-24 11:07:11] [CF] 2026-04-24T06:07:10Z INF Starting metrics server on 127.0.0.1:20243/metrics
+[2026-04-24 11:07:11] [CF] 2026-04-24T06:07:11Z INF Registered tunnel connection connIndex=0 connection=f7a86269-9506-4064-b465-97c181c70d53 event=0 ip=198.41.192.7 location=khi02 protocol=quic
+[2026-04-24 11:07:12] [CF] 2026-04-24T06:07:12Z INF Initiating graceful shutdown due to signal terminated ...
+[2026-04-24 11:07:12] [CF] 2026-04-24T06:07:12Z ERR failed to run the datagram handler error="context canceled" connIndex=0 event=0 ip=198.41.192.7
+[2026-04-24 11:07:22] ============================================================
+[2026-04-24 11:07:22] 🚀 CLOUDFLARE TUNNEL STARTING
+[2026-04-24 11:07:22] ============================================================
+[2026-04-24 11:07:22] Script Location: D:\Excel\QadriStore.py
+[2026-04-24 11:07:22] Working Directory: D:\Excel
+[2026-04-24 11:07:22] Python Executable: C:\Python314\python.exe
+[2026-04-24 11:07:22] Local Port: 8080
+[2026-04-24 11:07:22] 
+📁 Checking files...
+[2026-04-24 11:07:22] Script dir exists: True
+[2026-04-24 11:07:22] Log file will be: D:\Excel\debug_log.txt
+[2026-04-24 11:07:22] 
+🔍 Looking for cloudflared...
+[2026-04-24 11:07:22]    Checking: D:\Excel\cloudflared.exe
+[2026-04-24 11:07:22]    Checking: C:\Program Files\cloudflared\cloudflared.exe
+[2026-04-24 11:07:22]    Checking: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-24 11:07:22] ✅ Using: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-24 11:07:22] 
+📋 Command: C:\Program Files (x86)\cloudflared\cloudflared.exe tunnel --url http://localhost:8080
+[2026-04-24 11:07:22] 
+⏳ Starting Cloudflare process...
+[2026-04-24 11:07:22] ✅ Process Started! PID: 7880
+[2026-04-24 11:07:22] Waiting for tunnel URL...
+
+[2026-04-24 11:07:23] [CF] 2026-04-24T06:07:23Z INF Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps
+[2026-04-24 11:07:23] [CF] 2026-04-24T06:07:23Z INF Requesting new quick Tunnel on trycloudflare.com...
+[2026-04-24 11:07:27] ============================================================
+[2026-04-24 11:07:27] 🚀 CLOUDFLARE TUNNEL STARTING
+[2026-04-24 11:07:27] ============================================================
+[2026-04-24 11:07:27] Script Location: D:\Excel\QadriStore.py
+[2026-04-24 11:07:27] Working Directory: D:\Excel
+[2026-04-24 11:07:27] Python Executable: C:\Python314\python.exe
+[2026-04-24 11:07:27] Local Port: 8080
+[2026-04-24 11:07:27] 
+📁 Checking files...
+[2026-04-24 11:07:27] Script dir exists: True
+[2026-04-24 11:07:27] Log file will be: D:\Excel\debug_log.txt
+[2026-04-24 11:07:27] 
+🔍 Looking for cloudflared...
+[2026-04-24 11:07:27]    Checking: D:\Excel\cloudflared.exe
+[2026-04-24 11:07:27]    Checking: C:\Program Files\cloudflared\cloudflared.exe
+[2026-04-24 11:07:27]    Checking: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-24 11:07:27] ✅ Using: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-24 11:07:27] 
+📋 Command: C:\Program Files (x86)\cloudflared\cloudflared.exe tunnel --url http://localhost:8080
+[2026-04-24 11:07:27] 
+⏳ Starting Cloudflare process...
+[2026-04-24 11:07:27] ✅ Process Started! PID: 8980
+[2026-04-24 11:07:27] Waiting for tunnel URL...
+
+[2026-04-24 11:07:28] [CF] 2026-04-24T06:07:28Z INF Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps
+[2026-04-24 11:07:28] [CF] 2026-04-24T06:07:28Z INF Requesting new quick Tunnel on trycloudflare.com...
+[2026-04-24 11:07:32] [CF] 2026-04-24T06:07:32Z INF +--------------------------------------------------------------------------------------------+
+[2026-04-24 11:07:32] [CF] 2026-04-24T06:07:32Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |
+[2026-04-24 11:07:32] [CF] 2026-04-24T06:07:32Z INF |  https://medieval-marco-putting-concepts.trycloudflare.com                                 |
+[2026-04-24 11:07:32] 
+============================================================
+[2026-04-24 11:07:32] 🎉 TUNNEL URL FOUND!
+[2026-04-24 11:07:32] ============================================================
+[2026-04-24 11:07:32] 
+📡 Updating Firebase with URL: https://medieval-marco-putting-concepts.trycloudflare.com
+[2026-04-24 11:07:33] ✅ SUCCESS! Firebase updated!
+[2026-04-24 11:07:33] 🔗 Live Link: https://medieval-marco-putting-concepts.trycloudflare.com
+[2026-04-24 11:07:33] ⚙️ Tunnel is running...
+[2026-04-24 11:07:33] [CF] 2026-04-24T06:07:32Z INF +--------------------------------------------------------------------------------------------+
+[2026-04-24 11:07:33] [CF] 2026-04-24T06:07:32Z INF Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp]
+[2026-04-24 11:07:33] [CF] 2026-04-24T06:07:32Z INF Version 2026.3.0 (Checksum 59b12880b24af581cf5b1013db601c7d843b9b097e9c78aa5957c7f39f741885)
+[2026-04-24 11:07:33] [CF] 2026-04-24T06:07:32Z INF GOOS: windows, GOVersion: go1.24.13, GoArch: amd64
+[2026-04-24 11:07:33] [CF] 2026-04-24T06:07:32Z INF Settings: map[ha-connections:1 protocol:quic url:http://localhost:8080]
+[2026-04-24 11:07:33] [CF] 2026-04-24T06:07:32Z INF cloudflared will not automatically update on Windows systems.
+[2026-04-24 11:07:33] [CF] 2026-04-24T06:07:32Z INF Generated Connector ID: e9d0f5ee-0491-47c7-9aec-f1c504d7b81d
+[2026-04-24 11:07:33] [CF] 2026-04-24T06:07:32Z INF Initial protocol quic
+[2026-04-24 11:07:33] [CF] 2026-04-24T06:07:32Z INF ICMP proxy will use 192.168.100.57 as source for IPv4
+[2026-04-24 11:07:33] [CF] 2026-04-24T06:07:32Z INF ICMP proxy will use fe80::9c30:e4e8:f7c1:3b88 in zone Wi-Fi as source for IPv6
+[2026-04-24 11:07:33] [CF] 2026-04-24T06:07:32Z INF cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool
+[2026-04-24 11:07:33] [CF] 2026-04-24T06:07:32Z INF ICMP proxy will use 192.168.100.57 as source for IPv4
+[2026-04-24 11:07:33] [CF] 2026-04-24T06:07:32Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.192.37
+[2026-04-24 11:07:33] [CF] 2026-04-24T06:07:32Z INF ICMP proxy will use fe80::9c30:e4e8:f7c1:3b88 in zone Wi-Fi as source for IPv6
+[2026-04-24 11:07:33] [CF] 2026-04-24T06:07:32Z INF Starting metrics server on 127.0.0.1:20243/metrics
+[2026-04-24 11:07:33] [CF] 2026-04-24T06:07:33Z INF Registered tunnel connection connIndex=0 connection=3f5cfaf2-050d-4340-b37f-37ea9e4b9d09 event=0 ip=198.41.192.37 location=khi02 protocol=quic
+[2026-04-24 11:16:45] [CF] 2026-04-24T06:16:45Z INF Initiating graceful shutdown due to signal terminated ...
+[2026-04-24 11:16:45] [CF] 2026-04-24T06:16:45Z ERR failed to run the datagram handler error="context canceled" connIndex=0 event=0 ip=198.41.192.37
+[2026-04-24 11:16:45] [CF] 2026-04-24T06:16:45Z ERR failed to serve tunnel connection error="accept stream listener encountered a failure while serving" connIndex=0 event=0 ip=198.41.192.37
+[2026-04-24 11:16:57] ============================================================
+[2026-04-24 11:16:57] 🚀 CLOUDFLARE TUNNEL STARTING
+[2026-04-24 11:16:57] ============================================================
+[2026-04-24 11:16:57] Script Location: D:\Excel\QadriStore.py
+[2026-04-24 11:16:57] Working Directory: D:\Excel
+[2026-04-24 11:16:57] Python Executable: C:\Python314\python.exe
+[2026-04-24 11:16:57] Local Port: 8080
+[2026-04-24 11:16:57] 
+📁 Checking files...
+[2026-04-24 11:16:57] Script dir exists: True
+[2026-04-24 11:16:57] Log file will be: D:\Excel\debug_log.txt
+[2026-04-24 11:16:57] 
+🔍 Looking for cloudflared...
+[2026-04-24 11:16:57]    Checking: D:\Excel\cloudflared.exe
+[2026-04-24 11:16:57]    Checking: C:\Program Files\cloudflared\cloudflared.exe
+[2026-04-24 11:16:57]    Checking: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-24 11:16:57] ✅ Using: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-24 11:16:57] 
+📋 Command: C:\Program Files (x86)\cloudflared\cloudflared.exe tunnel --url http://localhost:8080
+[2026-04-24 11:16:57] 
+⏳ Starting Cloudflare process...
+[2026-04-24 11:16:57] ✅ Process Started! PID: 12760
+[2026-04-24 11:16:57] Waiting for tunnel URL...
+
+[2026-04-24 11:16:58] [CF] 2026-04-24T06:16:58Z INF Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps
+[2026-04-24 11:16:58] [CF] 2026-04-24T06:16:58Z INF Requesting new quick Tunnel on trycloudflare.com...
+[2026-04-24 11:17:01] [CF] 2026-04-24T06:17:01Z INF +--------------------------------------------------------------------------------------------+
+[2026-04-24 11:17:01] [CF] 2026-04-24T06:17:01Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |
+[2026-04-24 11:17:01] [CF] 2026-04-24T06:17:01Z INF |  https://paying-fleet-qualities-drives.trycloudflare.com                                   |
+[2026-04-24 11:17:01] 
+============================================================
+[2026-04-24 11:17:01] 🎉 TUNNEL URL FOUND!
+[2026-04-24 11:17:01] ============================================================
+[2026-04-24 11:17:01] 
+📡 Updating Firebase with URL: https://paying-fleet-qualities-drives.trycloudflare.com
+[2026-04-24 11:17:02] ✅ SUCCESS! Firebase updated!
+[2026-04-24 11:17:02] 🔗 Live Link: https://paying-fleet-qualities-drives.trycloudflare.com
+[2026-04-24 11:17:02] ⚙️ Tunnel is running...
+[2026-04-24 11:17:02] [CF] 2026-04-24T06:17:01Z INF +--------------------------------------------------------------------------------------------+
+[2026-04-24 11:17:02] [CF] 2026-04-24T06:17:01Z INF Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp]
+[2026-04-24 11:17:02] [CF] 2026-04-24T06:17:01Z INF Version 2026.3.0 (Checksum 59b12880b24af581cf5b1013db601c7d843b9b097e9c78aa5957c7f39f741885)
+[2026-04-24 11:17:02] [CF] 2026-04-24T06:17:01Z INF GOOS: windows, GOVersion: go1.24.13, GoArch: amd64
+[2026-04-24 11:17:02] [CF] 2026-04-24T06:17:01Z INF Settings: map[ha-connections:1 protocol:quic url:http://localhost:8080]
+[2026-04-24 11:17:02] [CF] 2026-04-24T06:17:01Z INF cloudflared will not automatically update on Windows systems.
+[2026-04-24 11:17:02] [CF] 2026-04-24T06:17:01Z INF Generated Connector ID: 7691fc4d-bcba-4d96-b28d-ccea0588f0d7
+[2026-04-24 11:17:02] [CF] 2026-04-24T06:17:01Z INF Initial protocol quic
+[2026-04-24 11:17:02] [CF] 2026-04-24T06:17:01Z INF ICMP proxy will use 192.168.100.57 as source for IPv4
+[2026-04-24 11:17:02] [CF] 2026-04-24T06:17:01Z INF ICMP proxy will use fe80::9c30:e4e8:f7c1:3b88 in zone Wi-Fi as source for IPv6
+[2026-04-24 11:17:02] [CF] 2026-04-24T06:17:02Z INF cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool
+[2026-04-24 11:17:02] [CF] 2026-04-24T06:17:02Z INF ICMP proxy will use 192.168.100.57 as source for IPv4
+[2026-04-24 11:17:02] [CF] 2026-04-24T06:17:02Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.192.167
+[2026-04-24 11:17:02] [CF] 2026-04-24T06:17:02Z INF ICMP proxy will use fe80::9c30:e4e8:f7c1:3b88 in zone Wi-Fi as source for IPv6
+[2026-04-24 11:17:02] [CF] 2026-04-24T06:17:02Z INF Starting metrics server on 127.0.0.1:20243/metrics
+[2026-04-24 11:17:02] [CF] 2026-04-24T06:17:02Z INF Registered tunnel connection connIndex=0 connection=b8e25f2b-ae1a-42bb-87e2-3e1dc33ef768 event=0 ip=198.41.192.167 location=khi02 protocol=quic
+[2026-04-24 18:30:21] [CF] 2026-04-24T13:30:21Z ERR failed to accept incoming stream requests error="failed to accept QUIC stream: timeout: no recent network activity" connIndex=0 event=0 ip=198.41.192.167
+[2026-04-24 18:30:21] [CF] 2026-04-24T13:30:21Z ERR failed to run the datagram handler error="timeout: no recent network activity" connIndex=0 event=0 ip=198.41.192.167
+[2026-04-24 18:30:21] [CF] 2026-04-24T13:30:21Z ERR failed to serve tunnel connection error="accept stream listener encountered a failure while serving" connIndex=0 event=0 ip=198.41.192.167
+[2026-04-24 18:30:21] [CF] 2026-04-24T13:30:21Z ERR Serve tunnel error error="accept stream listener encountered a failure while serving" connIndex=0 event=0 ip=198.41.192.167
+[2026-04-24 18:30:21] [CF] 2026-04-24T13:30:21Z INF Retrying connection in up to 1s connIndex=0 event=0 ip=198.41.192.167
+[2026-04-24 18:30:22] [CF] 2026-04-24T13:30:22Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.192.167
+[2026-04-24 18:30:22] [CF] 2026-04-24T13:30:22Z INF Registered tunnel connection connIndex=0 connection=b68252aa-7aaf-442a-bd73-ac29be2121a4 event=0 ip=198.41.192.167 location=khi02 protocol=quic
+[2026-04-23 19:56:54] ============================================================
+[2026-04-23 19:56:54] 🚀 CLOUDFLARE TUNNEL STARTING
+[2026-04-23 19:56:54] ============================================================
+[2026-04-23 19:56:54] Script Location: D:\Excel\QadriStore.py
+[2026-04-23 19:56:54] Working Directory: D:\Excel
+[2026-04-23 19:56:54] Python Executable: C:\Python314\python.exe
+[2026-04-23 19:56:54] Local Port: 8080
+[2026-04-23 19:56:54] 
+📁 Checking files...
+[2026-04-23 19:56:54] Script dir exists: True
+[2026-04-23 19:56:54] Log file will be: D:\Excel\debug_log.txt
+[2026-04-23 19:56:54] 
+🔍 Looking for cloudflared...
+[2026-04-23 19:56:54]    Checking: D:\Excel\cloudflared.exe
+[2026-04-23 19:56:54]    Checking: C:\Program Files\cloudflared\cloudflared.exe
+[2026-04-23 19:56:54]    Checking: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-23 19:56:54] ✅ Using: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-23 19:56:54] 
+📋 Command: C:\Program Files (x86)\cloudflared\cloudflared.exe tunnel --url http://localhost:8080
+[2026-04-23 19:56:54] 
+⏳ Starting Cloudflare process...
+[2026-04-23 19:56:54] ✅ Process Started! PID: 5584
+[2026-04-23 19:56:54] Waiting for tunnel URL...
+
+[2026-04-23 19:56:55] [CF] 2026-04-23T14:56:55Z INF Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps
+[2026-04-23 19:56:55] [CF] 2026-04-23T14:56:55Z INF Requesting new quick Tunnel on trycloudflare.com...
+[2026-04-23 19:56:55] ============================================================
+[2026-04-23 19:56:55] 🚀 CLOUDFLARE TUNNEL STARTING
+[2026-04-23 19:56:55] ============================================================
+[2026-04-23 19:56:55] Script Location: D:\Excel\QadriStore.py
+[2026-04-23 19:56:55] Working Directory: D:\Excel
+[2026-04-23 19:56:55] Python Executable: C:\Python314\python.exe
+[2026-04-23 19:56:55] Local Port: 8080
+[2026-04-23 19:56:55] 
+📁 Checking files...
+[2026-04-23 19:56:55] Script dir exists: True
+[2026-04-23 19:56:55] Log file will be: D:\Excel\debug_log.txt
+[2026-04-23 19:56:55] 
+🔍 Looking for cloudflared...
+[2026-04-23 19:56:55]    Checking: D:\Excel\cloudflared.exe
+[2026-04-23 19:56:55]    Checking: C:\Program Files\cloudflared\cloudflared.exe
+[2026-04-23 19:56:55]    Checking: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-23 19:56:55] ✅ Using: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-23 19:56:55] 
+📋 Command: C:\Program Files (x86)\cloudflared\cloudflared.exe tunnel --url http://localhost:8080
+[2026-04-23 19:56:55] 
+⏳ Starting Cloudflare process...
+[2026-04-23 19:56:55] ✅ Process Started! PID: 5496
+[2026-04-23 19:56:55] Waiting for tunnel URL...
+
+[2026-04-23 19:56:55] [CF] 2026-04-23T14:56:55Z INF Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps
+[2026-04-23 19:56:55] [CF] 2026-04-23T14:56:55Z INF Requesting new quick Tunnel on trycloudflare.com...
+[2026-04-23 19:56:58] [CF] 2026-04-23T14:56:58Z INF +--------------------------------------------------------------------------------------------+
+[2026-04-23 19:56:58] [CF] 2026-04-23T14:56:58Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |
+[2026-04-23 19:56:58] [CF] 2026-04-23T14:56:58Z INF |  https://sheffield-cancelled-independently-loan.trycloudflare.com                          |
+[2026-04-23 19:56:58] 
+============================================================
+[2026-04-23 19:56:58] 🎉 TUNNEL URL FOUND!
+[2026-04-23 19:56:58] ============================================================
+[2026-04-23 19:56:58] 
+📡 Updating Firebase with URL: https://sheffield-cancelled-independently-loan.trycloudflare.com
+[2026-04-23 19:56:58] [CF] 2026-04-23T14:56:58Z INF +--------------------------------------------------------------------------------------------+
+[2026-04-23 19:56:58] [CF] 2026-04-23T14:56:58Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |
+[2026-04-23 19:56:58] [CF] 2026-04-23T14:56:58Z INF |  https://write-marathon-coating-anatomy.trycloudflare.com                                  |
+[2026-04-23 19:56:58] 
+============================================================
+[2026-04-23 19:56:58] 🎉 TUNNEL URL FOUND!
+[2026-04-23 19:56:58] ============================================================
+[2026-04-23 19:56:58] 
+📡 Updating Firebase with URL: https://write-marathon-coating-anatomy.trycloudflare.com
+[2026-04-23 19:56:59] ✅ SUCCESS! Firebase updated!
+[2026-04-23 19:56:59] 🔗 Live Link: https://sheffield-cancelled-independently-loan.trycloudflare.com
+[2026-04-23 19:56:59] ⚙️ Tunnel is running...
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:58Z INF +--------------------------------------------------------------------------------------------+
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:58Z INF Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp]
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:58Z INF Version 2026.3.0 (Checksum 59b12880b24af581cf5b1013db601c7d843b9b097e9c78aa5957c7f39f741885)
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:58Z INF GOOS: windows, GOVersion: go1.24.13, GoArch: amd64
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:58Z INF Settings: map[ha-connections:1 protocol:quic url:http://localhost:8080]
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:58Z INF cloudflared will not automatically update on Windows systems.
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:59Z INF Generated Connector ID: 791458e7-171c-443b-be84-3c68ead7429a
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:59Z INF Initial protocol quic
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:59Z INF ICMP proxy will use 192.168.100.57 as source for IPv4
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:59Z INF ICMP proxy will use fe80::9c30:e4e8:f7c1:3b88 in zone Wi-Fi as source for IPv6
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:59Z INF cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:59Z INF ICMP proxy will use 192.168.100.57 as source for IPv4
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:59Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.192.7
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:59Z INF ICMP proxy will use fe80::9c30:e4e8:f7c1:3b88 in zone Wi-Fi as source for IPv6
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:59Z INF Starting metrics server on 127.0.0.1:20241/metrics
+[2026-04-23 19:56:59] ✅ SUCCESS! Firebase updated!
+[2026-04-23 19:56:59] 🔗 Live Link: https://write-marathon-coating-anatomy.trycloudflare.com
+[2026-04-23 19:56:59] ⚙️ Tunnel is running...
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:58Z INF +--------------------------------------------------------------------------------------------+
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:58Z INF Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp]
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:58Z INF Version 2026.3.0 (Checksum 59b12880b24af581cf5b1013db601c7d843b9b097e9c78aa5957c7f39f741885)
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:58Z INF GOOS: windows, GOVersion: go1.24.13, GoArch: amd64
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:58Z INF Settings: map[ha-connections:1 protocol:quic url:http://localhost:8080]
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:58Z INF cloudflared will not automatically update on Windows systems.
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:59Z INF Generated Connector ID: e218dba3-19d2-4211-9aeb-23ca1cb57b91
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:59Z INF Initial protocol quic
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:59Z INF ICMP proxy will use 192.168.100.57 as source for IPv4
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:59Z INF ICMP proxy will use fe80::9c30:e4e8:f7c1:3b88 in zone Wi-Fi as source for IPv6
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:59Z INF cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:59Z INF ICMP proxy will use 192.168.100.57 as source for IPv4
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:59Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.200.13
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:59Z INF ICMP proxy will use fe80::9c30:e4e8:f7c1:3b88 in zone Wi-Fi as source for IPv6
+[2026-04-23 19:56:59] [CF] 2026-04-23T14:56:59Z INF Starting metrics server on 127.0.0.1:20242/metrics
+[2026-04-23 19:57:00] [CF] 2026-04-23T14:57:00Z INF Registered tunnel connection connIndex=0 connection=f25f0008-ab0e-4f87-9726-7c0f563addb7 event=0 ip=198.41.200.13 location=sin15 protocol=quic
+[2026-04-23 19:57:00] [CF] 2026-04-23T14:57:00Z INF Registered tunnel connection connIndex=0 connection=b9906a8b-3736-4d54-b326-0b1974e171e6 event=0 ip=198.41.192.7 location=khi02 protocol=quic
+[2026-04-24 20:43:59] ============================================================
+[2026-04-24 20:43:59] 🚀 CLOUDFLARE TUNNEL STARTING
+[2026-04-24 20:43:59] ============================================================
+[2026-04-24 20:43:59] Script Location: D:\Excel\QadriStore.py
+[2026-04-24 20:43:59] Working Directory: D:\Excel
+[2026-04-24 20:43:59] Python Executable: C:\Python314\python.exe
+[2026-04-24 20:43:59] Local Port: 8080
+[2026-04-24 20:43:59] 
+📁 Checking files...
+[2026-04-24 20:43:59] Script dir exists: True
+[2026-04-24 20:43:59] Log file will be: D:\Excel\debug_log.txt
+[2026-04-24 20:43:59] 
+🔍 Looking for cloudflared...
+[2026-04-24 20:43:59]    Checking: D:\Excel\cloudflared.exe
+[2026-04-24 20:43:59]    Checking: C:\Program Files\cloudflared\cloudflared.exe
+[2026-04-24 20:43:59]    Checking: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-24 20:43:59] ✅ Using: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-24 20:43:59] 
+📋 Command: C:\Program Files (x86)\cloudflared\cloudflared.exe tunnel --url http://localhost:8080
+[2026-04-24 20:43:59] 
+⏳ Starting Cloudflare process...
+[2026-04-24 20:43:59] ✅ Process Started! PID: 5428
+[2026-04-24 20:43:59] Waiting for tunnel URL...
+
+[2026-04-24 20:43:59] [CF] 2026-04-24T15:43:59Z INF Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps
+[2026-04-24 20:43:59] [CF] 2026-04-24T15:43:59Z INF Requesting new quick Tunnel on trycloudflare.com...
+[2026-04-24 20:44:04] [CF] 2026-04-24T15:44:04Z INF +--------------------------------------------------------------------------------------------+
+[2026-04-24 20:44:04] [CF] 2026-04-24T15:44:04Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |
+[2026-04-24 20:44:04] [CF] 2026-04-24T15:44:04Z INF |  https://sculpture-include-tone-development.trycloudflare.com                              |
+[2026-04-24 20:44:04] 
+============================================================
+[2026-04-24 20:44:04] 🎉 TUNNEL URL FOUND!
+[2026-04-24 20:44:04] ============================================================
+[2026-04-24 20:44:04] 
+📡 Updating Firebase with URL: https://sculpture-include-tone-development.trycloudflare.com
+[2026-04-24 20:44:05] ✅ SUCCESS! Firebase updated!
+[2026-04-24 20:44:05] 🔗 Live Link: https://sculpture-include-tone-development.trycloudflare.com
+[2026-04-24 20:44:05] ⚙️ Tunnel is running...
+[2026-04-24 20:44:05] [CF] 2026-04-24T15:44:04Z INF +--------------------------------------------------------------------------------------------+
+[2026-04-24 20:44:05] [CF] 2026-04-24T15:44:04Z INF Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp]
+[2026-04-24 20:44:05] [CF] 2026-04-24T15:44:04Z INF Version 2026.3.0 (Checksum 59b12880b24af581cf5b1013db601c7d843b9b097e9c78aa5957c7f39f741885)
+[2026-04-24 20:44:05] [CF] 2026-04-24T15:44:04Z INF GOOS: windows, GOVersion: go1.24.13, GoArch: amd64
+[2026-04-24 20:44:05] [CF] 2026-04-24T15:44:04Z INF Settings: map[ha-connections:1 protocol:quic url:http://localhost:8080]
+[2026-04-24 20:44:05] [CF] 2026-04-24T15:44:04Z INF cloudflared will not automatically update on Windows systems.
+[2026-04-24 20:44:05] [CF] 2026-04-24T15:44:04Z INF Generated Connector ID: 27e6a925-947b-4297-8c04-b79be1662c0a
+[2026-04-24 20:44:05] [CF] 2026-04-24T15:44:04Z INF Initial protocol quic
+[2026-04-24 20:44:05] [CF] 2026-04-24T15:44:04Z INF ICMP proxy will use 192.168.100.57 as source for IPv4
+[2026-04-24 20:44:05] [CF] 2026-04-24T15:44:04Z INF ICMP proxy will use fe80::9c30:e4e8:f7c1:3b88 in zone Wi-Fi as source for IPv6
+[2026-04-24 20:44:05] [CF] 2026-04-24T15:44:04Z INF cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool
+[2026-04-24 20:44:05] [CF] 2026-04-24T15:44:04Z INF ICMP proxy will use 192.168.100.57 as source for IPv4
+[2026-04-24 20:44:05] [CF] 2026-04-24T15:44:04Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.192.67
+[2026-04-24 20:44:05] [CF] 2026-04-24T15:44:04Z INF ICMP proxy will use fe80::9c30:e4e8:f7c1:3b88 in zone Wi-Fi as source for IPv6
+[2026-04-24 20:44:05] [CF] 2026-04-24T15:44:04Z INF Starting metrics server on 127.0.0.1:20242/metrics
+[2026-04-24 20:44:05] [CF] 2026-04-24T15:44:04Z INF Registered tunnel connection connIndex=0 connection=2d40aaca-dcd3-4d02-932b-a8b84dcd2de6 event=0 ip=198.41.192.67 location=khi02 protocol=quic
+[2026-04-24 20:44:26] ============================================================
+[2026-04-24 20:44:26] 🚀 CLOUDFLARE TUNNEL STARTING
+[2026-04-24 20:44:26] ============================================================
+[2026-04-24 20:44:26] Script Location: D:\Excel\QadriStore.py
+[2026-04-24 20:44:26] Working Directory: D:\Excel
+[2026-04-24 20:44:26] Python Executable: C:\Python314\python.exe
+[2026-04-24 20:44:26] Local Port: 8080
+[2026-04-24 20:44:26] 
+📁 Checking files...
+[2026-04-24 20:44:26] Script dir exists: True
+[2026-04-24 20:44:26] Log file will be: D:\Excel\debug_log.txt
+[2026-04-24 20:44:26] 
+🔍 Looking for cloudflared...
+[2026-04-24 20:44:26]    Checking: D:\Excel\cloudflared.exe
+[2026-04-24 20:44:26]    Checking: C:\Program Files\cloudflared\cloudflared.exe
+[2026-04-24 20:44:26]    Checking: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-24 20:44:26] ✅ Using: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-24 20:44:26] 
+📋 Command: C:\Program Files (x86)\cloudflared\cloudflared.exe tunnel --url http://localhost:8080
+[2026-04-24 20:44:26] 
+⏳ Starting Cloudflare process...
+[2026-04-24 20:44:26] ✅ Process Started! PID: 10200
+[2026-04-24 20:44:26] Waiting for tunnel URL...
+
+[2026-04-24 20:44:27] [CF] 2026-04-24T15:44:27Z INF Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps
+[2026-04-24 20:44:27] [CF] 2026-04-24T15:44:27Z INF Requesting new quick Tunnel on trycloudflare.com...
+[2026-04-24 20:44:31] [CF] 2026-04-24T15:44:31Z INF +--------------------------------------------------------------------------------------------+
+[2026-04-24 20:44:31] [CF] 2026-04-24T15:44:31Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |
+[2026-04-24 20:44:31] [CF] 2026-04-24T15:44:31Z INF |  https://extra-worm-charter-candle.trycloudflare.com                                       |
+[2026-04-24 20:44:31] 
+============================================================
+[2026-04-24 20:44:31] 🎉 TUNNEL URL FOUND!
+[2026-04-24 20:44:31] ============================================================
+[2026-04-24 20:44:31] 
+📡 Updating Firebase with URL: https://extra-worm-charter-candle.trycloudflare.com
+[2026-04-24 20:44:32] ✅ SUCCESS! Firebase updated!
+[2026-04-24 20:44:32] 🔗 Live Link: https://extra-worm-charter-candle.trycloudflare.com
+[2026-04-24 20:44:32] ⚙️ Tunnel is running...
+[2026-04-24 20:44:32] [CF] 2026-04-24T15:44:31Z INF +--------------------------------------------------------------------------------------------+
+[2026-04-24 20:44:32] [CF] 2026-04-24T15:44:31Z INF Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp]
+[2026-04-24 20:44:32] [CF] 2026-04-24T15:44:31Z INF Version 2026.3.0 (Checksum 59b12880b24af581cf5b1013db601c7d843b9b097e9c78aa5957c7f39f741885)
+[2026-04-24 20:44:32] [CF] 2026-04-24T15:44:31Z INF GOOS: windows, GOVersion: go1.24.13, GoArch: amd64
+[2026-04-24 20:44:32] [CF] 2026-04-24T15:44:31Z INF Settings: map[ha-connections:1 protocol:quic url:http://localhost:8080]
+[2026-04-24 20:44:32] [CF] 2026-04-24T15:44:31Z INF cloudflared will not automatically update on Windows systems.
+[2026-04-24 20:44:32] [CF] 2026-04-24T15:44:31Z INF Generated Connector ID: be738f87-8000-480c-b687-b0daa3fee6e8
+[2026-04-24 20:44:32] [CF] 2026-04-24T15:44:31Z INF Initial protocol quic
+[2026-04-24 20:44:32] [CF] 2026-04-24T15:44:31Z INF ICMP proxy will use 192.168.100.57 as source for IPv4
+[2026-04-24 20:44:32] [CF] 2026-04-24T15:44:31Z INF ICMP proxy will use fe80::9c30:e4e8:f7c1:3b88 in zone Wi-Fi as source for IPv6
+[2026-04-24 20:44:32] [CF] 2026-04-24T15:44:31Z INF cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool
+[2026-04-24 20:44:32] [CF] 2026-04-24T15:44:31Z INF ICMP proxy will use 192.168.100.57 as source for IPv4
+[2026-04-24 20:44:32] [CF] 2026-04-24T15:44:31Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.200.23
+[2026-04-24 20:44:32] [CF] 2026-04-24T15:44:31Z INF ICMP proxy will use fe80::9c30:e4e8:f7c1:3b88 in zone Wi-Fi as source for IPv6
+[2026-04-24 20:44:32] [CF] 2026-04-24T15:44:31Z INF Starting metrics server on 127.0.0.1:20243/metrics
+[2026-04-24 20:44:32] [CF] 2026-04-24T15:44:32Z INF Registered tunnel connection connIndex=0 connection=9452ce67-3194-4551-87a7-da5eb02814f7 event=0 ip=198.41.200.23 location=sin22 protocol=quic
+[2026-04-25 11:52:37] [CF] 2026-04-25T06:52:37Z INF Initiating graceful shutdown due to signal terminated ...
+[2026-04-25 11:52:37] [CF] 2026-04-25T06:52:37Z ERR failed to run the datagram handler error="Application error 0x0 (remote)" connIndex=0 event=0 ip=198.41.200.23
+[2026-04-25 11:52:37] [CF] 2026-04-25T06:52:37Z ERR failed to serve tunnel connection error="accept stream listener encountered a failure while serving" connIndex=0 event=0 ip=198.41.200.23
+[2026-04-25 11:52:37] [CF] 2026-04-25T06:52:37Z ERR Serve tunnel error error="accept stream listener encountered a failure while serving" connIndex=0 event=0 ip=198.41.200.23
+[2026-04-25 11:52:37] [CF] 2026-04-25T06:52:37Z INF Retrying connection in up to 1s connIndex=0 event=0 ip=198.41.200.23
+[2026-04-25 11:52:37] [CF] 2026-04-25T06:52:37Z ERR Connection terminated connIndex=0
+[2026-04-25 11:52:56] ============================================================
+[2026-04-25 11:52:56] 🚀 CLOUDFLARE TUNNEL STARTING
+[2026-04-25 11:52:56] ============================================================
+[2026-04-25 11:52:56] Script Location: D:\Excel\QadriStore.py
+[2026-04-25 11:52:56] Working Directory: D:\Excel
+[2026-04-25 11:52:56] Python Executable: C:\Python314\python.exe
+[2026-04-25 11:52:56] Local Port: 8080
+[2026-04-25 11:52:56] 
+📁 Checking files...
+[2026-04-25 11:52:56] Script dir exists: True
+[2026-04-25 11:52:56] Log file will be: D:\Excel\debug_log.txt
+[2026-04-25 11:52:56] 
+🔍 Looking for cloudflared...
+[2026-04-25 11:52:56]    Checking: D:\Excel\cloudflared.exe
+[2026-04-25 11:52:56]    Checking: C:\Program Files\cloudflared\cloudflared.exe
+[2026-04-25 11:52:56]    Checking: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-25 11:52:56] ✅ Using: C:\Program Files (x86)\cloudflared\cloudflared.exe
+[2026-04-25 11:52:56] 
+📋 Command: C:\Program Files (x86)\cloudflared\cloudflared.exe tunnel --url http://localhost:8080
+[2026-04-25 11:52:56] 
+⏳ Starting Cloudflare process...
+[2026-04-25 11:52:56] ✅ Process Started! PID: 6732
+[2026-04-25 11:52:56] Waiting for tunnel URL...
+
+[2026-04-25 11:52:57] [CF] 2026-04-25T06:52:57Z INF Thank you for trying Cloudflare Tunnel. Doing so, without a Cloudflare account, is a quick way to experiment and try it out. However, be aware that these account-less Tunnels have no uptime guarantee, are subject to the Cloudflare Online Services Terms of Use (https://www.cloudflare.com/website-terms/), and Cloudflare reserves the right to investigate your use of Tunnels for violations of such terms. If you intend to use Tunnels in production you should use a pre-created named tunnel by following: https://developers.cloudflare.com/cloudflare-one/connections/connect-apps
+[2026-04-25 11:52:57] [CF] 2026-04-25T06:52:57Z INF Requesting new quick Tunnel on trycloudflare.com...
+[2026-04-25 11:53:01] [CF] 2026-04-25T06:53:01Z INF +--------------------------------------------------------------------------------------------+
+[2026-04-25 11:53:01] [CF] 2026-04-25T06:53:01Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |
+[2026-04-25 11:53:01] [CF] 2026-04-25T06:53:01Z INF |  https://intensive-lodging-centers-dialog.trycloudflare.com                                |
+[2026-04-25 11:53:01] 
+============================================================
+[2026-04-25 11:53:01] 🎉 TUNNEL URL FOUND!
+[2026-04-25 11:53:01] ============================================================
+[2026-04-25 11:53:01] 
+📡 Updating Firebase with URL: https://intensive-lodging-centers-dialog.trycloudflare.com
+[2026-04-25 11:53:02] ✅ SUCCESS! Firebase updated!
+[2026-04-25 11:53:02] 🔗 Live Link: https://intensive-lodging-centers-dialog.trycloudflare.com
+[2026-04-25 11:53:02] ⚙️ Tunnel is running...
+[2026-04-25 11:53:02] [CF] 2026-04-25T06:53:01Z INF +--------------------------------------------------------------------------------------------+
+[2026-04-25 11:53:02] [CF] 2026-04-25T06:53:01Z INF Cannot determine default configuration path. No file [config.yml config.yaml] in [~/.cloudflared ~/.cloudflare-warp ~/cloudflare-warp]
+[2026-04-25 11:53:02] [CF] 2026-04-25T06:53:01Z INF Version 2026.3.0 (Checksum 59b12880b24af581cf5b1013db601c7d843b9b097e9c78aa5957c7f39f741885)
+[2026-04-25 11:53:02] [CF] 2026-04-25T06:53:01Z INF GOOS: windows, GOVersion: go1.24.13, GoArch: amd64
+[2026-04-25 11:53:02] [CF] 2026-04-25T06:53:01Z INF Settings: map[ha-connections:1 protocol:quic url:http://localhost:8080]
+[2026-04-25 11:53:02] [CF] 2026-04-25T06:53:01Z INF cloudflared will not automatically update on Windows systems.
+[2026-04-25 11:53:02] [CF] 2026-04-25T06:53:01Z INF Generated Connector ID: f8fd6fc7-7090-41ef-8fa5-164ee03cf411
+[2026-04-25 11:53:02] [CF] 2026-04-25T06:53:01Z INF Initial protocol quic
+[2026-04-25 11:53:02] [CF] 2026-04-25T06:53:01Z INF ICMP proxy will use 192.168.100.57 as source for IPv4
+[2026-04-25 11:53:02] [CF] 2026-04-25T06:53:01Z INF ICMP proxy will use fe80::9c30:e4e8:f7c1:3b88 in zone Wi-Fi as source for IPv6
+[2026-04-25 11:53:02] [CF] 2026-04-25T06:53:01Z INF cloudflared does not support loading the system root certificate pool on Windows. Please use --origin-ca-pool <PATH> to specify the path to the certificate pool
+[2026-04-25 11:53:02] [CF] 2026-04-25T06:53:01Z INF ICMP proxy will use 192.168.100.57 as source for IPv4
+[2026-04-25 11:53:02] [CF] 2026-04-25T06:53:01Z INF Tunnel connection curve preferences: [X25519MLKEM768 CurveP256] connIndex=0 event=0 ip=198.41.192.57
+[2026-04-25 11:53:02] [CF] 2026-04-25T06:53:02Z INF ICMP proxy will use fe80::9c30:e4e8:f7c1:3b88 in zone Wi-Fi as source for IPv6
+[2026-04-25 11:53:02] [CF] 2026-04-25T06:53:02Z INF Starting metrics server on 127.0.0.1:20243/metrics
+[2026-04-25 11:53:02] [CF] 2026-04-25T06:53:02Z INF Registered tunnel connection connIndex=0 connection=aa9ff312-7958-4d53-9ad2-4f5ebc54db77 event=0 ip=198.41.192.57 location=khi02 protocol=quic

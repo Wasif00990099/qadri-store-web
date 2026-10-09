@@ -1,0 +1,28 @@
+Steps:
+1)Start menu kholo
+2)“cmd” search karo
+3)Right click → Run as administrator
+4)Phir dobara ye command run karo:
+5)taskkill /F /IM ngrok.exe
+
+
+
+netstat -ano | findstr :8080
+
+taskkill /F /PID 1234
+
+
+
+
+
+
+
+
+
+
+
+ngrok.exe config add-authtoken 3COHFsRtJo8B2B7tshnz5zlCCk6_63KqLxdb8D1WDgRmXpPfW
+
+
+
+python -m pip install requests
